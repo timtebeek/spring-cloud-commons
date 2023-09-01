@@ -35,12 +35,12 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  */
 @ClassPathExclusions("spring-retry-*.jar")
-public class OAuth2LoadBalancerClientAutoConfigurationTests {
+class OAuth2LoadBalancerClientAutoConfigurationTests {
 
 	private ConfigurableApplicationContext context;
 
 	@BeforeEach
-	public void before() {
+	void before() {
 		// FIXME: why do I need to do this? (fails in maven build without it.
 		// https://stackoverflow.com/questions/28911560/tomcat-8-embedded-error-org-apache-catalina-core-containerbase-a-child-con
 		// https://github.com/spring-projects/spring-boot/issues/21535
@@ -48,7 +48,7 @@ public class OAuth2LoadBalancerClientAutoConfigurationTests {
 	}
 
 	@AfterEach
-	public void close() {
+	void close() {
 		if (this.context != null) {
 			this.context.close();
 		}
@@ -56,7 +56,7 @@ public class OAuth2LoadBalancerClientAutoConfigurationTests {
 
 	@Test
 	@Disabled
-	public void userInfoNotLoadBalanced() {
+	void userInfoNotLoadBalanced() {
 		this.context = new SpringApplicationBuilder(ClientConfiguration.class).properties("spring.config.name=test",
 				"server.port=0", "security.oauth2.resource.userInfoUri:https://example.com").run();
 
@@ -66,7 +66,7 @@ public class OAuth2LoadBalancerClientAutoConfigurationTests {
 
 	@Test
 	@Disabled
-	public void userInfoLoadBalancedNoRetry() {
+	void userInfoLoadBalancedNoRetry() {
 		this.context = new SpringApplicationBuilder(ClientConfiguration.class).properties("spring.config.name=test",
 				"server.port=0", "security.oauth2.resource.userInfoUri:https://nosuchservice",
 				"spring.cloud.oauth2.load-balanced.enabled=true").run();

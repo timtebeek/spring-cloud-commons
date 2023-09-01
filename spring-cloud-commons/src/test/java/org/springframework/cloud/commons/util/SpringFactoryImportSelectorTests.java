@@ -23,10 +23,10 @@ import static org.assertj.core.api.BDDAssertions.then;
 /**
  * @author Spencer Gibb
  */
-public class SpringFactoryImportSelectorTests {
+class SpringFactoryImportSelectorTests {
 
 	@Test
-	public void testFindAnnotation() {
+	void testFindAnnotation() {
 		MyAnnotationImportSelector selector = new MyAnnotationImportSelector();
 		then(selector.getAnnotationClass()).as("annotationClass was wrong").isEqualTo(MyAnnotation.class);
 	}

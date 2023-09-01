@@ -38,7 +38,7 @@ import static org.mockito.Mockito.when;
  * @author Olga Maciaszek-Sharma
  */
 @ExtendWith(MockitoExtension.class)
-public class InterceptorRetryPolicyTest {
+class InterceptorRetryPolicyTest {
 
 	private HttpRequest request;
 
@@ -49,7 +49,7 @@ public class InterceptorRetryPolicyTest {
 	private String serviceName;
 
 	@BeforeEach
-	public void setup() {
+	void setup() {
 		request = mock(HttpRequest.class);
 		policy = mock(LoadBalancedRetryPolicy.class);
 		serviceInstanceChooser = mock(ServiceInstanceChooser.class);
@@ -57,7 +57,7 @@ public class InterceptorRetryPolicyTest {
 	}
 
 	@AfterEach
-	public void teardown() {
+	void teardown() {
 		request = null;
 		policy = null;
 		serviceInstanceChooser = null;
@@ -65,7 +65,7 @@ public class InterceptorRetryPolicyTest {
 	}
 
 	@Test
-	public void canRetryBeforeExecution() {
+	void canRetryBeforeExecution() {
 		when(policy.retryableException(any())).thenReturn(true);
 		InterceptorRetryPolicy interceptorRetryPolicy = new InterceptorRetryPolicy(request, policy,
 				serviceInstanceChooser, serviceName);
@@ -77,7 +77,7 @@ public class InterceptorRetryPolicyTest {
 	}
 
 	@Test
-	public void canRetryNextServer() {
+	void canRetryNextServer() {
 		InterceptorRetryPolicy interceptorRetryPolicy = new InterceptorRetryPolicy(request, policy,
 				serviceInstanceChooser, serviceName);
 		LoadBalancedRetryContext context = mock(LoadBalancedRetryContext.class);
@@ -89,7 +89,7 @@ public class InterceptorRetryPolicyTest {
 	}
 
 	@Test
-	public void cannotRetryOnException() {
+	void cannotRetryOnException() {
 		InterceptorRetryPolicy interceptorRetryPolicy = new InterceptorRetryPolicy(request, policy,
 				serviceInstanceChooser, serviceName);
 		LoadBalancedRetryContext context = mock(LoadBalancedRetryContext.class);
@@ -99,7 +99,7 @@ public class InterceptorRetryPolicyTest {
 	}
 
 	@Test
-	public void cannotRetry() {
+	void cannotRetry() {
 		when(policy.retryableException(any())).thenReturn(true);
 		InterceptorRetryPolicy interceptorRetryPolicy = new InterceptorRetryPolicy(request, policy,
 				serviceInstanceChooser, serviceName);
@@ -110,7 +110,7 @@ public class InterceptorRetryPolicyTest {
 	}
 
 	@Test
-	public void open() {
+	void open() {
 		InterceptorRetryPolicy interceptorRetryPolicy = new InterceptorRetryPolicy(request, policy,
 				serviceInstanceChooser, serviceName);
 
@@ -120,7 +120,7 @@ public class InterceptorRetryPolicyTest {
 	}
 
 	@Test
-	public void close() {
+	void close() {
 		InterceptorRetryPolicy interceptorRetryPolicy = new InterceptorRetryPolicy(request, policy,
 				serviceInstanceChooser, serviceName);
 		LoadBalancedRetryContext context = mock(LoadBalancedRetryContext.class);
@@ -131,7 +131,7 @@ public class InterceptorRetryPolicyTest {
 	}
 
 	@Test
-	public void registerThrowable() {
+	void registerThrowable() {
 		InterceptorRetryPolicy interceptorRetryPolicy = new InterceptorRetryPolicy(request, policy,
 				serviceInstanceChooser, serviceName);
 		LoadBalancedRetryContext context = mock(LoadBalancedRetryContext.class);
@@ -144,7 +144,7 @@ public class InterceptorRetryPolicyTest {
 	}
 
 	@Test
-	public void equals() {
+	void equals() {
 		InterceptorRetryPolicy interceptorRetryPolicy = new InterceptorRetryPolicy(request, policy,
 				serviceInstanceChooser, serviceName);
 

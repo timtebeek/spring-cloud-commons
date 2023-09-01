@@ -42,10 +42,9 @@ import static org.mockito.Mockito.mock;
  * @author Spencer Gibb
  */
 // @checkstyle:off
-@SpringBootTest(classes = { DiscoveryClientHealthIndicatorTests.Config.class, CommonsClientAutoConfiguration.class },
-		properties = "spring.cloud.discovery.client.health-indicator.include-description:true")
 // @checkstyle:on
-public class DiscoveryClientHealthIndicatorTests {
+@SpringBootTest(classes = {DiscoveryClientHealthIndicatorTests.Config.class, CommonsClientAutoConfiguration.class},properties = "spring.cloud.discovery.client.health-indicator.include-description:true")
+class DiscoveryClientHealthIndicatorTests {
 
 	@Autowired
 	private DiscoveryCompositeHealthContributor healthContributor;
@@ -54,7 +53,7 @@ public class DiscoveryClientHealthIndicatorTests {
 	private DiscoveryClientHealthIndicator clientHealthIndicator;
 
 	@Test
-	public void testHealthIndicatorDescriptionDisabled() {
+	void testHealthIndicatorDescriptionDisabled() {
 		then(this.healthContributor).as("healthIndicator was null").isNotNull();
 		assertHealth(getHealth("testDiscoveryHealthIndicator"), Status.UNKNOWN);
 		assertHealth(getHealth("discoveryClient"), Status.UNKNOWN);

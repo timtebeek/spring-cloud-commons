@@ -47,7 +47,7 @@ import org.springframework.test.annotation.Repeat;
 import static org.assertj.core.api.BDDAssertions.then;
 
 @SpringBootTest(classes = TestConfiguration.class)
-public class RefreshScopeScaleTests {
+class RefreshScopeScaleTests {
 
 	private static Log logger = LogFactory.getLog(RefreshScopeScaleTests.class);
 
@@ -65,7 +65,7 @@ public class RefreshScopeScaleTests {
 	@Test
 	@Repeat(10)
 	@DirtiesContext
-	public void testConcurrentRefresh() throws Exception {
+	void testConcurrentRefresh() throws Exception {
 
 		// overload the thread pool and try to force Spring to create too many instances
 		int n = 80;

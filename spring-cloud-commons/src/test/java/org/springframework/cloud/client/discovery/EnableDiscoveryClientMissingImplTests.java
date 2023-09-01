@@ -33,10 +33,10 @@ import static org.assertj.core.api.BDDAssertions.then;
  *
  * @author Spencer Gibb
  */
-public class EnableDiscoveryClientMissingImplTests {
+class EnableDiscoveryClientMissingImplTests {
 
 	@Test
-	public void testContextFails() {
+	void testContextFails() {
 		try (ConfigurableApplicationContext context = new SpringApplicationBuilder().sources(App.class)
 				.web(WebApplicationType.NONE).run()) {
 			// do sth

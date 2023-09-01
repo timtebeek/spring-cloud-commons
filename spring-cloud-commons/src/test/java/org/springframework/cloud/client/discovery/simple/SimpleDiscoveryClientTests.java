@@ -35,12 +35,12 @@ import static org.assertj.core.api.BDDAssertions.then;
  * @author Charu Covindane
  * @author Neil Powell
  */
-public class SimpleDiscoveryClientTests {
+class SimpleDiscoveryClientTests {
 
 	private SimpleDiscoveryClient simpleDiscoveryClient;
 
 	@BeforeEach
-	public void setUp() {
+	void setUp() {
 		SimpleDiscoveryProperties simpleDiscoveryProperties = new SimpleDiscoveryProperties();
 
 		Map<String, List<DefaultServiceInstance>> map = new HashMap<>();
@@ -54,7 +54,7 @@ public class SimpleDiscoveryClientTests {
 	}
 
 	@Test
-	public void shouldBeAbleToRetrieveServiceDetailsByName() {
+	void shouldBeAbleToRetrieveServiceDetailsByName() {
 		List<ServiceInstance> instances = this.simpleDiscoveryClient.getInstances("service1");
 		then(instances.size()).isEqualTo(3);
 		then(instances.get(0).getServiceId()).isEqualTo("service1");

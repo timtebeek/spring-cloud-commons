@@ -45,7 +45,7 @@ import static org.springframework.cloud.client.loadbalancer.reactive.LoadBalance
  *
  * @author Olga Maciaszek-Sharma
  */
-public class ReactorLoadBalancerClientAutoConfigurationTests {
+class ReactorLoadBalancerClientAutoConfigurationTests {
 
 	@Test
 	void loadBalancerFilterAddedToWebClientBuilder() {

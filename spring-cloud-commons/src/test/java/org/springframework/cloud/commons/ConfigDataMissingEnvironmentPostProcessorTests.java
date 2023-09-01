@@ -37,7 +37,7 @@ import static org.mockito.Mockito.mock;
  * @author Ryan Baxter
  */
 @ExtendWith(OutputCaptureExtension.class)
-public class ConfigDataMissingEnvironmentPostProcessorTests {
+class ConfigDataMissingEnvironmentPostProcessorTests {
 
 	@Test
 	void noSpringConfigImport() {

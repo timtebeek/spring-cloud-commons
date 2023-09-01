@@ -41,18 +41,18 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  */
 @SpringBootTest(classes = ServiceRegistryEndpointNoRegistrationTests.TestConfiguration.class)
 @AutoConfigureMockMvc
-public class ServiceRegistryEndpointNoRegistrationTests {
+class ServiceRegistryEndpointNoRegistrationTests {
 
 	@Autowired
 	private MockMvc mvc;
 
 	@Test
-	public void testGet() throws Exception {
+	void testGet() throws Exception {
 		this.mvc.perform(get("/service-registry/instance-status")).andExpect(status().isNotFound());
 	}
 
 	@Test
-	public void testPost() throws Exception {
+	void testPost() throws Exception {
 		this.mvc.perform(post("/service-registry/instance-status").content("newstatus"))
 				.andExpect(status().isNotFound());
 	}

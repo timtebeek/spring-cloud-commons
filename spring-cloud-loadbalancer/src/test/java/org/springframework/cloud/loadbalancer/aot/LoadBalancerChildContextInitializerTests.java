@@ -63,7 +63,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Olga Maciaszek-Sharma
  */
 @ExtendWith(OutputCaptureExtension.class)
-public class LoadBalancerChildContextInitializerTests {
+class LoadBalancerChildContextInitializerTests {
 
 	private static final Log LOG = LogFactory.getLog(LoadBalancerChildContextInitializerTests.class);
 

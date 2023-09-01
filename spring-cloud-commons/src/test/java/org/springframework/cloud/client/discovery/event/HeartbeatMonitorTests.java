@@ -23,29 +23,29 @@ import static org.assertj.core.api.BDDAssertions.then;
 /**
  * @author Dave Syer
  */
-public class HeartbeatMonitorTests {
+class HeartbeatMonitorTests {
 
 	private HeartbeatMonitor monitor = new HeartbeatMonitor();
 
 	@Test
-	public void onAndOff() {
+	void onAndOff() {
 		then(this.monitor.update("foo")).isTrue();
 		then(this.monitor.update("foo")).isFalse();
 	}
 
 	@Test
-	public void toggle() {
+	void toggle() {
 		then(this.monitor.update("foo")).isTrue();
 		then(this.monitor.update("bar")).isTrue();
 	}
 
 	@Test
-	public void nullInitialValue() {
+	void nullInitialValue() {
 		then(this.monitor.update(null)).isFalse();
 	}
 
 	@Test
-	public void nullSecondValue() {
+	void nullSecondValue() {
 		then(this.monitor.update("foo")).isTrue();
 		then(this.monitor.update(null)).isFalse();
 	}

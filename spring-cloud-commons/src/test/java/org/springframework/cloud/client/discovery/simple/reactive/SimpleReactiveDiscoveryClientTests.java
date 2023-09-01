@@ -34,7 +34,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Tim Ysewyn
  * @author Charu Covindane
  */
-public class SimpleReactiveDiscoveryClientTests {
+class SimpleReactiveDiscoveryClientTests {
 
 	private final DefaultServiceInstance service1Inst1 = new DefaultServiceInstance(null, null, "host1", 8080, false);
 
@@ -43,7 +43,7 @@ public class SimpleReactiveDiscoveryClientTests {
 	private SimpleReactiveDiscoveryClient client;
 
 	@BeforeEach
-	public void setUp() {
+	void setUp() {
 		SimpleReactiveDiscoveryProperties simpleReactiveDiscoveryProperties = new SimpleReactiveDiscoveryProperties();
 		simpleReactiveDiscoveryProperties
 				.setInstances(singletonMap("service", Arrays.asList(service1Inst1, service1Inst2)));
@@ -52,25 +52,25 @@ public class SimpleReactiveDiscoveryClientTests {
 	}
 
 	@Test
-	public void verifyDefaults() {
+	void verifyDefaults() {
 		assertThat(client.description()).isEqualTo("Simple Reactive Discovery Client");
 		assertThat(client.getOrder()).isEqualTo(ReactiveDiscoveryClient.DEFAULT_ORDER);
 	}
 
 	@Test
-	public void shouldReturnFluxOfServices() {
+	void shouldReturnFluxOfServices() {
 		Flux<String> services = this.client.getServices();
 		StepVerifier.create(services).expectNext("service").expectComplete().verify();
 	}
 
 	@Test
-	public void shouldReturnEmptyFluxForNonExistingService() {
+	void shouldReturnEmptyFluxForNonExistingService() {
 		Flux<ServiceInstance> instances = this.client.getInstances("undefined");
 		StepVerifier.create(instances).expectComplete().verify();
 	}
 
 	@Test
-	public void shouldReturnFluxOfServiceInstances() {
+	void shouldReturnFluxOfServiceInstances() {
 		Flux<ServiceInstance> services = this.client.getInstances("service");
 		StepVerifier.create(services).expectNext(service1Inst1).expectNext(service1Inst2).expectComplete().verify();
 	}

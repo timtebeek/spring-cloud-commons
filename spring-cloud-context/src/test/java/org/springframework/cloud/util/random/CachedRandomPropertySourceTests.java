@@ -39,18 +39,18 @@ import static org.mockito.Mockito.when;
  */
 @ExtendWith(MockitoExtension.class)
 @DirtiesContext
-public class CachedRandomPropertySourceTests {
+class CachedRandomPropertySourceTests {
 
 	@Mock
 	private PropertySource randomValuePropertySource;
 
 	@BeforeEach
-	public void setup() {
+	void setup() {
 		when(randomValuePropertySource.getProperty(eq("random.long"))).thenReturn(1234L);
 	}
 
 	@Test
-	public void getProperty() {
+	void getProperty() {
 		HashMap<String, AtomicInteger> keyCount = new HashMap<>();
 		HashMap<Map<String, Object>, String> typeToKeyLookup = new HashMap<>();
 		HashMap<String, AtomicInteger> typeCount = new HashMap<>();

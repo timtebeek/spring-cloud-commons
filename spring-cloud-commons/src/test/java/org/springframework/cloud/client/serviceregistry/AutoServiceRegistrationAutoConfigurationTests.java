@@ -35,10 +35,10 @@ import static org.assertj.core.api.BDDAssertions.then;
 /**
  * @author Spencer Gibb
  */
-public class AutoServiceRegistrationAutoConfigurationTests {
+class AutoServiceRegistrationAutoConfigurationTests {
 
 	@Test
-	public void hasAutoServiceRegistration() {
+	void hasAutoServiceRegistration() {
 		try (AnnotationConfigApplicationContext context = setup(HasAutoServiceRegistrationConfiguration.class)) {
 			AutoServiceRegistration autoServiceRegistration = context.getBean(AutoServiceRegistration.class);
 			then(autoServiceRegistration).isNotNull();
@@ -46,7 +46,7 @@ public class AutoServiceRegistrationAutoConfigurationTests {
 	}
 
 	@Test
-	public void noAutoServiceRegistrationAndFailFast() {
+	void noAutoServiceRegistrationAndFailFast() {
 		assertThatThrownBy(() -> {
 			try (AnnotationConfigApplicationContext context = setup(
 					"spring.cloud.service-registry.auto-registration.failFast=true")) {
@@ -56,7 +56,7 @@ public class AutoServiceRegistrationAutoConfigurationTests {
 	}
 
 	@Test
-	public void noAutoServiceRegistrationAndFailFastFalse() {
+	void noAutoServiceRegistrationAndFailFastFalse() {
 		try (AnnotationConfigApplicationContext context = setup()) {
 			assertNoBean(context);
 		}

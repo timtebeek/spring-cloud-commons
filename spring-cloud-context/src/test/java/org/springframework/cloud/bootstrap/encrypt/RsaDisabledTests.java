@@ -32,27 +32,27 @@ import static org.assertj.core.api.BDDAssertions.then;
 /**
  * @author Ryan Baxter
  */
-@ClassPathExclusions({ "spring-security-rsa*.jar" })
-public class RsaDisabledTests {
+@ClassPathExclusions({"spring-security-rsa*.jar"})
+class RsaDisabledTests {
 
 	private ConfigurableApplicationContext context;
 
 	@BeforeEach
-	public void setUp() {
+	void setUp() {
 		this.context = new SpringApplicationBuilder().web(WebApplicationType.NONE)
 				.sources(EncryptionBootstrapConfiguration.class).web(WebApplicationType.NONE)
 				.properties("encrypt.key:mykey", "encrypt.rsa.strong:true", "encrypt.rsa.salt:foobar").run();
 	}
 
 	@AfterEach
-	public void tearDown() {
+	void tearDown() {
 		if (this.context != null) {
 			this.context.close();
 		}
 	}
 
 	@Test
-	public void testLoadBalancedRetryFactoryBean() throws Exception {
+	void testLoadBalancedRetryFactoryBean() throws Exception {
 		Map<String, RsaProperties> properties = this.context.getBeansOfType(RsaProperties.class);
 		then(properties.values()).hasSize(0);
 	}

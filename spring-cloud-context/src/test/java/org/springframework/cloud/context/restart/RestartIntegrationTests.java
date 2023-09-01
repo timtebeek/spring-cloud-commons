@@ -26,19 +26,19 @@ import org.springframework.context.annotation.Configuration;
 
 import static org.assertj.core.api.BDDAssertions.then;
 
-public class RestartIntegrationTests {
+class RestartIntegrationTests {
 
 	private ConfigurableApplicationContext context;
 
 	@AfterEach
-	public void close() {
+	void close() {
 		if (this.context != null) {
 			this.context.close();
 		}
 	}
 
 	@Test
-	public void testRestartTwice() {
+	void testRestartTwice() {
 
 		this.context = SpringApplication.run(TestConfiguration.class, "--management.endpoint.restart.enabled=true",
 				"--server.port=0", "--spring.cloud.bootstrap.enabled=true",

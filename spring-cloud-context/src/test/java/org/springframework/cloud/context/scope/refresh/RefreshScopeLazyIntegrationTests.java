@@ -45,7 +45,7 @@ import org.springframework.test.annotation.DirtiesContext;
 import static org.assertj.core.api.BDDAssertions.then;
 
 @SpringBootTest(classes = TestConfiguration.class)
-public class RefreshScopeLazyIntegrationTests {
+class RefreshScopeLazyIntegrationTests {
 
 	@Autowired
 	private Service service;
@@ -57,20 +57,20 @@ public class RefreshScopeLazyIntegrationTests {
 	private org.springframework.cloud.context.scope.refresh.RefreshScope scope;
 
 	@BeforeEach
-	public void init() {
+	void init() {
 		// The RefreshScope is lazy (eager=false) so it won't have been instantiated yet
 		then(ExampleService.getInitCount()).isEqualTo(0);
 		ExampleService.reset();
 	}
 
 	@AfterEach
-	public void close() {
+	void close() {
 		ExampleService.reset();
 	}
 
 	@Test
 	@DirtiesContext
-	public void testSimpleProperties() {
+	void testSimpleProperties() {
 		then(this.service.getMessage()).isEqualTo("Hello scope!");
 		then(this.service instanceof Advised).isTrue();
 		// Change the dynamic property source...
@@ -83,7 +83,7 @@ public class RefreshScopeLazyIntegrationTests {
 
 	@Test
 	@DirtiesContext
-	public void testRefresh() {
+	void testRefresh() {
 		then(this.service.getMessage()).isEqualTo("Hello scope!");
 		String id1 = this.service.toString();
 		// Change the dynamic property source...
@@ -101,7 +101,7 @@ public class RefreshScopeLazyIntegrationTests {
 
 	@Test
 	@DirtiesContext
-	public void testRefreshBean() {
+	void testRefreshBean() {
 		then(this.service.getMessage()).isEqualTo("Hello scope!");
 		String id1 = this.service.toString();
 		// Change the dynamic property source...

@@ -33,7 +33,7 @@ import static org.assertj.core.api.BDDAssertions.then;
  * @author Ryan Baxter
  */
 @SpringBootTest
-public class EnableDiscoveryClientAutoRegisterFalseTests {
+class EnableDiscoveryClientAutoRegisterFalseTests {
 
 	@Autowired(required = false)
 	AutoServiceRegistrationAutoConfiguration autoConfiguration;
@@ -48,7 +48,7 @@ public class EnableDiscoveryClientAutoRegisterFalseTests {
 	Boolean autoRegisterProperty;
 
 	@Test
-	public void veryifyBeans() {
+	void veryifyBeans() {
 		then(this.autoConfiguration).isNull();
 		then(this.autoServiceRegistration).isNull();
 		then(this.autoServiceRegistrationProperties).isNull();

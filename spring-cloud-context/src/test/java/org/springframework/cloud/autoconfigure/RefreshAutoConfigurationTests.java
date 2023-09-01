@@ -40,7 +40,7 @@ import static org.assertj.core.api.BDDAssertions.then;
  * @author Dave Syer
  */
 @ExtendWith(OutputCaptureExtension.class)
-public class RefreshAutoConfigurationTests {
+class RefreshAutoConfigurationTests {
 
 	private static ConfigurableApplicationContext getApplicationContext(WebApplicationType type, Class<?> configuration,
 			String... properties) {
@@ -49,7 +49,7 @@ public class RefreshAutoConfigurationTests {
 	}
 
 	@Test
-	public void noWarnings(CapturedOutput output) {
+	void noWarnings(CapturedOutput output) {
 		try (ConfigurableApplicationContext context = getApplicationContext(WebApplicationType.NONE, Config.class)) {
 			then(context.containsBean("refreshScope")).isTrue();
 			then(output.toString()).doesNotContain("WARN");
@@ -57,7 +57,7 @@ public class RefreshAutoConfigurationTests {
 	}
 
 	@Test
-	public void disabled() {
+	void disabled() {
 		try (ConfigurableApplicationContext context = getApplicationContext(WebApplicationType.SERVLET, Config.class,
 				"spring.cloud.refresh.enabled:false")) {
 			then(context.containsBean("refreshScope")).isFalse();
@@ -65,7 +65,7 @@ public class RefreshAutoConfigurationTests {
 	}
 
 	@Test
-	public void refreshables() {
+	void refreshables() {
 		try (ConfigurableApplicationContext context = getApplicationContext(WebApplicationType.NONE, Config.class,
 				"config.foo=bar", "spring.cloud.refresh.refreshable:" + SealedConfigProps.class.getName())) {
 			context.getBean(SealedConfigProps.class);
@@ -74,7 +74,7 @@ public class RefreshAutoConfigurationTests {
 	}
 
 	@Test
-	public void extraRefreshables() {
+	void extraRefreshables() {
 		try (ConfigurableApplicationContext context = getApplicationContext(WebApplicationType.NONE, Config.class,
 				"sealedconfig.foo=bar",
 				"spring.cloud.refresh.extra-refreshable:" + SealedConfigProps.class.getName())) {
@@ -84,7 +84,7 @@ public class RefreshAutoConfigurationTests {
 	}
 
 	@Test
-	public void neverRefreshable() {
+	void neverRefreshable() {
 		try (ConfigurableApplicationContext context = getApplicationContext(WebApplicationType.NONE, Config.class,
 				"countingconfig.foo=bar",
 				"spring.cloud.refresh.never-refreshable:" + CountingConfigProps.class.getName())) {

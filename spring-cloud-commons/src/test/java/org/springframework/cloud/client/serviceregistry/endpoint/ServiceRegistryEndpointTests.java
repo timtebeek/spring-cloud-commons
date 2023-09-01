@@ -48,11 +48,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * @author Tim Ysewyn
  */
 // @checkstyle:off
-@SpringBootTest(classes = ServiceRegistryEndpointTests.TestConfiguration.class,
-		properties = "management.endpoints.web.exposure.include=*")
+@SpringBootTest(classes = ServiceRegistryEndpointTests.TestConfiguration.class,properties = "management.endpoints.web.exposure.include=*")
 // @checkstyle:on
 @AutoConfigureMockMvc
-public class ServiceRegistryEndpointTests {
+class ServiceRegistryEndpointTests {
 
 	private static final String BASE_PATH = new WebEndpointProperties().getBasePath();
 
@@ -67,13 +66,13 @@ public class ServiceRegistryEndpointTests {
 	private MockMvc mvc;
 
 	@Test
-	public void testGet() throws Exception {
+	void testGet() throws Exception {
 		this.mvc.perform(get(BASE_PATH + "/serviceregistry")).andExpect(status().isOk())
 				.andExpect(content().string(containsString(MYSTATUS)));
 	}
 
 	@Test
-	public void testPost() throws Exception {
+	void testPost() throws Exception {
 		Map<String, String> status = Collections.singletonMap("status", UPDATED_STATUS);
 		this.mvc.perform(post(BASE_PATH + "/serviceregistry").content(new ObjectMapper().writeValueAsString(status))
 				.contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk());

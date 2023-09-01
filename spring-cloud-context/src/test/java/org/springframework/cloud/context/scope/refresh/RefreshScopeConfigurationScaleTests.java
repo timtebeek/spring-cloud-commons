@@ -49,9 +49,8 @@ import org.springframework.util.ObjectUtils;
 
 import static org.assertj.core.api.BDDAssertions.then;
 
-@SpringBootTest(classes = TestConfiguration.class, properties = {
-		"logging.level.org.springframework.cloud.context.scope.refresh.RefreshScopeConfigurationScaleTests=DEBUG" })
-public class RefreshScopeConfigurationScaleTests {
+@SpringBootTest(classes = TestConfiguration.class, properties = {"logging.level.org.springframework.cloud.context.scope.refresh.RefreshScopeConfigurationScaleTests=DEBUG"})
+class RefreshScopeConfigurationScaleTests {
 
 	private static Log logger = LogFactory.getLog(RefreshScopeConfigurationScaleTests.class);
 
@@ -69,7 +68,7 @@ public class RefreshScopeConfigurationScaleTests {
 	@Test
 	@Repeat(10)
 	@DirtiesContext
-	public void testConcurrentRefresh() throws Exception {
+	void testConcurrentRefresh() throws Exception {
 
 		this.scope.setEager(false);
 

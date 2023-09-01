@@ -30,17 +30,17 @@ import static org.assertj.core.api.BDDAssertions.then;
 /**
  * @author Dave Syer
  */
-public class RefreshScopeSerializationTests {
+class RefreshScopeSerializationTests {
 
 	@Test
-	public void defaultApplicationContextId() {
+	void defaultApplicationContextId() {
 		ConfigurableApplicationContext context = new SpringApplicationBuilder(TestConfiguration.class)
 				.properties("spring.cloud.bootstrap.enabled=true").web(WebApplicationType.NONE).run();
 		then(context.getId()).isEqualTo("application-1");
 	}
 
 	@Test
-	public void serializationIdReproducible() {
+	void serializationIdReproducible() {
 		String first = getBeanFactory().getSerializationId();
 		String second = getBeanFactory().getSerializationId();
 		then(first).isNotNull();

@@ -38,15 +38,14 @@ import org.springframework.core.env.PropertySource;
 import static java.util.Collections.singletonMap;
 import static org.assertj.core.api.Assertions.assertThat;
 
-@SpringBootTest(classes = Application.class,
-		properties = { "spring.cloud.bootstrap.enabled=true", "spring.cloud.bootstrap.name:ordering" })
-public class BootstrapOrderingCustomOverrideSystemPropertiesIntegrationTests {
+@SpringBootTest(classes = Application.class,properties = {"spring.cloud.bootstrap.enabled=true", "spring.cloud.bootstrap.name:ordering"})
+class BootstrapOrderingCustomOverrideSystemPropertiesIntegrationTests {
 
 	@Autowired
 	private ConfigurableEnvironment environment;
 
 	@Test
-	public void orderingIsCorrect() {
+	void orderingIsCorrect() {
 		MutablePropertySources propertySources = environment.getPropertySources();
 		PropertySource<?> test1 = propertySources.get("bootstrapProperties-testBootstrap1");
 		PropertySource<?> test2 = propertySources.get("bootstrapProperties-testBootstrap2");

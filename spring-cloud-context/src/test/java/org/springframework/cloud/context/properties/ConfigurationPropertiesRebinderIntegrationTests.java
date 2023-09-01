@@ -42,7 +42,7 @@ import static org.assertj.core.api.BDDAssertions.then;
 
 @SpringBootTest(classes = TestConfiguration.class, properties = "spring.cloud.bootstrap.enabled=true")
 @ActiveProfiles("config")
-public class ConfigurationPropertiesRebinderIntegrationTests {
+class ConfigurationPropertiesRebinderIntegrationTests {
 
 	@Autowired
 	private TestProperties properties;
@@ -58,7 +58,7 @@ public class ConfigurationPropertiesRebinderIntegrationTests {
 
 	@Test
 	@DirtiesContext
-	public void testSimpleProperties() {
+	void testSimpleProperties() {
 		then(this.properties.getMessage()).isEqualTo("Hello scope!");
 		then(this.properties.getCount()).isEqualTo(1);
 		// Change the dynamic property source...
@@ -70,7 +70,7 @@ public class ConfigurationPropertiesRebinderIntegrationTests {
 
 	@Test
 	@DirtiesContext
-	public void testRefreshInParent() {
+	void testRefreshInParent() {
 		then(this.config.getName()).isEqualTo("parent");
 		// Change the dynamic property source...
 		TestPropertyValues.of("config.name=foo").applyTo(this.environment);
@@ -81,7 +81,7 @@ public class ConfigurationPropertiesRebinderIntegrationTests {
 
 	@Test
 	@DirtiesContext
-	public void testRefresh() {
+	void testRefresh() {
 		then(this.properties.getCount()).isEqualTo(1);
 		then(this.properties.getMessage()).isEqualTo("Hello scope!");
 		// Change the dynamic property source...
@@ -94,7 +94,7 @@ public class ConfigurationPropertiesRebinderIntegrationTests {
 
 	@Test
 	@DirtiesContext
-	public void testRefreshByName() {
+	void testRefreshByName() {
 		then(this.properties.getCount()).isEqualTo(1);
 		then(this.properties.getMessage()).isEqualTo("Hello scope!");
 		// Change the dynamic property source...

@@ -32,8 +32,8 @@ import static org.assertj.core.api.BDDAssertions.then;
 /**
  * @author Ryan Baxter
  */
-@SpringBootTest(properties = { "spring.cloud.service-registry.auto-registration.enabled: false" })
-public class AutoRegisterPropertyFalseTests {
+@SpringBootTest(properties = {"spring.cloud.service-registry.auto-registration.enabled: false"})
+class AutoRegisterPropertyFalseTests {
 
 	@Autowired(required = false)
 	AutoServiceRegistrationAutoConfiguration autoConfiguration;
@@ -48,7 +48,7 @@ public class AutoRegisterPropertyFalseTests {
 	Boolean autoRegisterProperty;
 
 	@Test
-	public void veryifyBeans() {
+	void veryifyBeans() {
 		then(this.autoConfiguration).isNull();
 		then(this.autoServiceRegistration).isNull();
 		then(this.autoServiceRegistrationProperties).isNull();

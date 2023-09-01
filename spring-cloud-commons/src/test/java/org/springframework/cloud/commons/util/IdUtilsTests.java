@@ -36,44 +36,44 @@ public class IdUtilsTests {
 	private MockEnvironment env;
 
 	@BeforeEach
-	public void setup() {
+	void setup() {
 		this.env = new MockEnvironment();
 	}
 
 	@AfterEach
-	public void destroy() {
+	void destroy() {
 		this.env = null;
 	}
 
 	@Test
-	public void emptyEnvironmentWorks() {
+	void emptyEnvironmentWorks() {
 		String instanceId = IdUtils.getDefaultInstanceId(this.env);
 		then(instanceId).as("instanceId was not null").isNull();
 	}
 
 	@Test
-	public void vcapInstanceIdWorks() {
+	void vcapInstanceIdWorks() {
 		this.env.setProperty("vcap.application.instance_id", DEFAULT_ID);
 		String instanceId = IdUtils.getDefaultInstanceId(this.env);
 		then(DEFAULT_ID).isEqualTo(instanceId).as("instanceId was wrong");
 	}
 
 	@Test
-	public void hostnameWorks() {
+	void hostnameWorks() {
 		this.env.setProperty("spring.cloud.client.hostname", DEFAULT_ID);
 		String instanceId = IdUtils.getDefaultInstanceId(this.env);
 		then(DEFAULT_ID).isEqualTo(instanceId).as("instanceId was wrong");
 	}
 
 	@Test
-	public void appNameWorks() {
+	void appNameWorks() {
 		this.env.setProperty("spring.application.name", DEFAULT_ID);
 		String instanceId = IdUtils.getDefaultInstanceId(this.env);
 		then(DEFAULT_ID).isEqualTo(instanceId).as("instanceId was wrong");
 	}
 
 	@Test
-	public void hostnameAndAppNameWorks() {
+	void hostnameAndAppNameWorks() {
 		this.env.setProperty("spring.application.name", DEFAULT_ID);
 		this.env.setProperty("spring.cloud.client.hostname", DEFAULT_ID + "2");
 		String instanceId = IdUtils.getDefaultInstanceId(this.env);
@@ -81,21 +81,21 @@ public class IdUtilsTests {
 	}
 
 	@Test
-	public void instanceIdWorks() {
+	void instanceIdWorks() {
 		this.env.setProperty("spring.cloud.client.hostname", DEFAULT_ID);
 		String instanceId = IdUtils.getDefaultInstanceId(this.env);
 		then(DEFAULT_ID).isEqualTo(instanceId).as("instanceId was wrong");
 	}
 
 	@Test
-	public void portWorks() {
+	void portWorks() {
 		this.env.setProperty("spring.application.name", DEFAULT_ID);
 		String instanceId = IdUtils.getDefaultInstanceId(this.env);
 		then(DEFAULT_ID).isEqualTo(instanceId).as("instanceId was wrong");
 	}
 
 	@Test
-	public void appNameAndPortWorks() {
+	void appNameAndPortWorks() {
 		this.env.setProperty("spring.application.name", DEFAULT_ID);
 		this.env.setProperty("server.port", "80");
 		String instanceId = IdUtils.getDefaultInstanceId(this.env);
@@ -103,7 +103,7 @@ public class IdUtilsTests {
 	}
 
 	@Test
-	public void fullWorks() {
+	void fullWorks() {
 		this.env.setProperty("spring.cloud.client.hostname", "myhost");
 		this.env.setProperty("spring.application.name", DEFAULT_ID);
 		this.env.setProperty("server.port", "80");
@@ -112,24 +112,24 @@ public class IdUtilsTests {
 	}
 
 	@Test
-	public void testUnresolvedServiceId() {
+	void testUnresolvedServiceId() {
 		then(IdUtils.DEFAULT_SERVICE_ID_STRING).isEqualTo(IdUtils.getUnresolvedServiceId());
 	}
 
 	@Test
-	public void testUnresolvedServiceIdWithActiveProfiles() {
+	void testUnresolvedServiceIdWithActiveProfiles() {
 		then(IdUtils.DEFAULT_SERVICE_ID_WITH_ACTIVE_PROFILES_STRING)
 				.isEqualTo(IdUtils.getUnresolvedServiceIdWithActiveProfiles());
 	}
 
 	@Test
-	public void testServiceIdDefaults() {
+	void testServiceIdDefaults() {
 		this.env.setProperty("cachedrandom.application.value", "123abc");
 		then("application:8080:123abc").isEqualTo(IdUtils.getResolvedServiceId(this.env));
 	}
 
 	@Test
-	public void testVCAPServiceId() {
+	void testVCAPServiceId() {
 		env.setProperty("vcap.application.name", "vcapname");
 		env.setProperty("vcap.application.instance_index", "vcapindex");
 		env.setProperty("vcap.application.instance_id", "vcapid");
@@ -137,7 +137,7 @@ public class IdUtilsTests {
 	}
 
 	@Test
-	public void testSpringServiceId() {
+	void testSpringServiceId() {
 		env.setProperty("spring.application.name", "springname");
 		env.setProperty("spring.application.index", "springindex");
 		env.setProperty("cachedrandom.springname.value", "123abc");
@@ -145,7 +145,7 @@ public class IdUtilsTests {
 	}
 
 	@Test
-	public void testServerPortServiceId() {
+	void testServerPortServiceId() {
 		env.setProperty("spring.application.name", "springname");
 		env.setProperty("server.port", "1234");
 		env.setProperty("cachedrandom.springname.value", "123abc");
@@ -158,7 +158,7 @@ public class IdUtilsTests {
 	}
 
 	@Test
-	public void testVCAPServiceIdWithActiveProfile() {
+	void testVCAPServiceIdWithActiveProfile() {
 		env.setProperty("vcap.application.name", "vcapname");
 		env.setProperty("vcap.application.instance_index", "vcapindex");
 		env.setProperty("vcap.application.instance_id", "vcapid");
@@ -167,7 +167,7 @@ public class IdUtilsTests {
 	}
 
 	@Test
-	public void testSpringServiceIdWithActiveProfile() {
+	void testSpringServiceIdWithActiveProfile() {
 		env.setProperty("spring.application.name", "springname");
 		env.setProperty("spring.application.index", "springindex");
 		env.setProperty("cachedrandom.springname.value", "123abc");
@@ -176,7 +176,7 @@ public class IdUtilsTests {
 	}
 
 	@Test
-	public void testServerPortServiceIdWithActiveProfile() {
+	void testServerPortServiceIdWithActiveProfile() {
 		env.setProperty("spring.application.name", "springname");
 		env.setProperty("server.port", "1234");
 		env.setProperty("cachedrandom.springname.value", "123abc");

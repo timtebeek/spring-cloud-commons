@@ -29,13 +29,13 @@ import static org.assertj.core.api.BDDAssertions.then;
  * @author Marcin Grzejszczak
  */
 @SpringBootTest(properties = "spring.cloud.compatibility-verifier.enabled=false")
-public class CompatibilityVerifierDisabledAutoConfigurationTests {
+class CompatibilityVerifierDisabledAutoConfigurationTests {
 
 	@Autowired(required = false)
 	CompositeCompatibilityVerifier compositeCompatibilityVerifier;
 
 	@Test
-	public void contextLoads() {
+	void contextLoads() {
 		then(this.compositeCompatibilityVerifier).isNull();
 	}
 

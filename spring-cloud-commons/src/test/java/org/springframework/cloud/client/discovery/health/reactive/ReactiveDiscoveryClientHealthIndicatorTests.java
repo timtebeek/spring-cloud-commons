@@ -57,20 +57,20 @@ class ReactiveDiscoveryClientHealthIndicatorTests {
 	private ReactiveDiscoveryClientHealthIndicator indicator;
 
 	@Test
-	public void shouldReturnCorrectOrder() {
+	void shouldReturnCorrectOrder() {
 		assertThat(indicator.getOrder()).isEqualTo(Ordered.HIGHEST_PRECEDENCE);
 		indicator.setOrder(0);
 		assertThat(indicator.getOrder()).isEqualTo(0);
 	}
 
 	@Test
-	public void shouldUseClientDescriptionForIndicatorName() {
+	void shouldUseClientDescriptionForIndicatorName() {
 		when(discoveryClient.description()).thenReturn("Mocked Service Discovery Client");
 		assertThat(indicator.getName()).isEqualTo("Mocked Service Discovery Client");
 	}
 
 	@Test
-	public void shouldReturnUnknownStatusWhenNotInitialized() {
+	void shouldReturnUnknownStatusWhenNotInitialized() {
 		Health expectedHealth = Health.status(new Status(Status.UNKNOWN.getCode(), "Discovery Client not initialized"))
 				.build();
 		Mono<Health> health = indicator.health();
@@ -78,7 +78,7 @@ class ReactiveDiscoveryClientHealthIndicatorTests {
 	}
 
 	@Test
-	public void shouldReturnUpStatusWhenNotUsingServicesQueryAndProbeSucceeds() {
+	void shouldReturnUpStatusWhenNotUsingServicesQueryAndProbeSucceeds() {
 		when(properties.isUseServicesQuery()).thenReturn(false);
 		ReactiveDiscoveryClient discoveryClient = new TestDiscoveryClient();
 		ReactiveDiscoveryClientHealthIndicator indicator = new ReactiveDiscoveryClientHealthIndicator(discoveryClient,
@@ -92,7 +92,7 @@ class ReactiveDiscoveryClientHealthIndicatorTests {
 	}
 
 	@Test
-	public void shouldReturnDownStatusWhenNotUsingServicesQueryAndProbeFails() {
+	void shouldReturnDownStatusWhenNotUsingServicesQueryAndProbeFails() {
 		ExceptionThrowingDiscoveryClient discoveryClient = new ExceptionThrowingDiscoveryClient();
 		ReactiveDiscoveryClientHealthIndicator indicator = new ReactiveDiscoveryClientHealthIndicator(discoveryClient,
 				properties);
@@ -105,7 +105,7 @@ class ReactiveDiscoveryClientHealthIndicatorTests {
 	}
 
 	@Test
-	public void shouldReturnUpStatusWhenUsingServicesQueryAndNoServicesReturned() {
+	void shouldReturnUpStatusWhenUsingServicesQueryAndNoServicesReturned() {
 		when(properties.isUseServicesQuery()).thenReturn(true);
 		when(discoveryClient.getServices()).thenReturn(Flux.empty());
 		Health expectedHealth = Health.status(new Status(Status.UP.getCode(), "")).withDetail("services", emptyList())
@@ -118,7 +118,7 @@ class ReactiveDiscoveryClientHealthIndicatorTests {
 	}
 
 	@Test
-	public void shouldReturnUpStatusWhenUsingServicesQueryAndServicesReturned() {
+	void shouldReturnUpStatusWhenUsingServicesQueryAndServicesReturned() {
 		when(properties.isUseServicesQuery()).thenReturn(true);
 		when(properties.isIncludeDescription()).thenReturn(true);
 		when(discoveryClient.getServices()).thenReturn(Flux.just("service"));
@@ -133,7 +133,7 @@ class ReactiveDiscoveryClientHealthIndicatorTests {
 	}
 
 	@Test
-	public void shouldReturnDownStatusWhenUsingServicesQueryAndCallFails() {
+	void shouldReturnDownStatusWhenUsingServicesQueryAndCallFails() {
 		when(properties.isUseServicesQuery()).thenReturn(true);
 		RuntimeException ex = new RuntimeException("something went wrong");
 		when(discoveryClient.getServices()).thenReturn(Flux.error(ex));

@@ -42,8 +42,8 @@ import org.springframework.test.annotation.DirtiesContext;
 
 import static org.assertj.core.api.BDDAssertions.then;
 
-@SpringBootTest(classes = TestConfiguration.class, properties = { "test.messages[0]=one", "test.messages[1]=two" })
-public class RefreshScopeListBindingIntegrationTests {
+@SpringBootTest(classes = TestConfiguration.class, properties = {"test.messages[0]=one", "test.messages[1]=two"})
+class RefreshScopeListBindingIntegrationTests {
 
 	@Autowired
 	private TestProperties properties;
@@ -56,7 +56,7 @@ public class RefreshScopeListBindingIntegrationTests {
 
 	@Test
 	@DirtiesContext
-	public void testAppendProperties() {
+	void testAppendProperties() {
 		then("[one, two]").isEqualTo(this.properties.getMessages().toString());
 		then(this.properties instanceof Advised).isTrue();
 		TestPropertyValues.of("test.messages[0]:foo").applyTo(this.environment);
@@ -66,7 +66,7 @@ public class RefreshScopeListBindingIntegrationTests {
 
 	@Test
 	@DirtiesContext
-	public void testReplaceProperties() {
+	void testReplaceProperties() {
 		then("[one, two]").isEqualTo(this.properties.getMessages().toString());
 		then(this.properties instanceof Advised).isTrue();
 		Map<String, Object> map = findTestProperties();

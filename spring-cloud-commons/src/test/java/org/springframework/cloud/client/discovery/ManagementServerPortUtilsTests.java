@@ -27,11 +27,11 @@ import org.springframework.context.ConfigurableApplicationContext;
 
 import static org.assertj.core.api.BDDAssertions.then;
 
-@ClassPathExclusions({ "spring-boot-actuator-autoconfigure-*" })
-public class ManagementServerPortUtilsTests {
+@ClassPathExclusions({"spring-boot-actuator-autoconfigure-*"})
+class ManagementServerPortUtilsTests {
 
 	@Test
-	public void contextStarts() {
+	void contextStarts() {
 		try (ConfigurableApplicationContext context = new SpringApplicationBuilder().web(WebApplicationType.NONE)
 				.sources(TestApp.class).run()) {
 

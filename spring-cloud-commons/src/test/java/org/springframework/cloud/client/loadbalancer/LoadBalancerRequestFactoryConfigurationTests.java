@@ -43,7 +43,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-public class LoadBalancerRequestFactoryConfigurationTests {
+class LoadBalancerRequestFactoryConfigurationTests {
 
 	@Mock
 	private HttpRequest request;
@@ -67,7 +67,7 @@ public class LoadBalancerRequestFactoryConfigurationTests {
 	private LoadBalancerRequest<?> lbRequest;
 
 	@BeforeEach
-	public void setup() {
+	void setup() {
 		this.httpRequestCaptor = ArgumentCaptor.forClass(HttpRequest.class);
 	}
 
@@ -82,7 +82,7 @@ public class LoadBalancerRequestFactoryConfigurationTests {
 	}
 
 	@Test
-	public void transformer() throws Exception {
+	void transformer() throws Exception {
 		ConfigurableApplicationContext context = init(Transformer.class);
 
 		LoadBalancerRequestTransformer transformer = context.getBean("transformer",
@@ -99,7 +99,7 @@ public class LoadBalancerRequestFactoryConfigurationTests {
 	}
 
 	@Test
-	public void noTransformer() throws Exception {
+	void noTransformer() throws Exception {
 		init(NoTransformer.class);
 
 		this.lbRequest.apply(this.instance);
@@ -110,7 +110,7 @@ public class LoadBalancerRequestFactoryConfigurationTests {
 	}
 
 	@Test
-	public void transformersAreOrdered() throws Exception {
+	void transformersAreOrdered() throws Exception {
 		ConfigurableApplicationContext context = init(TransformersAreOrdered.class);
 
 		LoadBalancerRequestTransformer transformer = context.getBean("transformer",

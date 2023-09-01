@@ -33,16 +33,16 @@ import static org.assertj.core.api.BDDAssertions.then;
 /**
  * @author Spencer Gibb
  */
-@ClassPathExclusions({ "spring-boot-actuator-autoconfigure-*.jar", "spring-boot-starter-actuator-*.jar" })
+@ClassPathExclusions({"spring-boot-actuator-autoconfigure-*.jar", "spring-boot-starter-actuator-*.jar"})
 @ExtendWith(OutputCaptureExtension.class)
-public class RefreshAutoConfigurationMoreClassPathTests {
+class RefreshAutoConfigurationMoreClassPathTests {
 
 	private static ConfigurableApplicationContext getApplicationContext(Class<?> configuration, String... properties) {
 		return new SpringApplicationBuilder(configuration).web(WebApplicationType.NONE).properties(properties).run();
 	}
 
 	@Test
-	public void unknownClassProtected(CapturedOutput outputCapture) {
+	void unknownClassProtected(CapturedOutput outputCapture) {
 		try (ConfigurableApplicationContext context = getApplicationContext(Config.class, "debug=true")) {
 			String output = outputCapture.toString();
 			then(output)

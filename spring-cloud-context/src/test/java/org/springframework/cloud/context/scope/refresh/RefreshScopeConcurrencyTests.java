@@ -47,7 +47,7 @@ import org.springframework.test.annotation.Repeat;
 import static org.assertj.core.api.BDDAssertions.then;
 
 @SpringBootTest(classes = TestConfiguration.class)
-public class RefreshScopeConcurrencyTests {
+class RefreshScopeConcurrencyTests {
 
 	private static Log logger = LogFactory.getLog(RefreshScopeConcurrencyTests.class);
 
@@ -65,7 +65,7 @@ public class RefreshScopeConcurrencyTests {
 	@Test
 	@Repeat(10)
 	@DirtiesContext
-	public void testConcurrentRefresh() throws Exception {
+	void testConcurrentRefresh() throws Exception {
 
 		then(this.service.getMessage()).isEqualTo("Hello scope!");
 		this.properties.setMessage("Foo");

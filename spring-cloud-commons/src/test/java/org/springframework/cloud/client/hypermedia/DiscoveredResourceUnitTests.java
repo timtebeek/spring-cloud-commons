@@ -42,7 +42,7 @@ import static org.mockito.Mockito.when;
  * @author Tim Ysewyn
  */
 @ExtendWith(MockitoExtension.class)
-public class DiscoveredResourceUnitTests {
+class DiscoveredResourceUnitTests {
 
 	@Mock
 	ServiceInstanceProvider provider;
@@ -59,7 +59,7 @@ public class DiscoveredResourceUnitTests {
 	DiscoveredResource resource;
 
 	@BeforeEach
-	public void setUp() {
+	void setUp() {
 		lenient().when(this.traversal.buildTraversal(any(Traverson.class))).thenReturn(this.builder);
 
 		this.resource = new DiscoveredResource(this.provider, this.traversal);
@@ -67,12 +67,12 @@ public class DiscoveredResourceUnitTests {
 	}
 
 	@Test
-	public void isUndiscoveredByDefault() {
+	void isUndiscoveredByDefault() {
 		then(this.resource.getLink()).isNull();
 	}
 
 	@Test
-	public void verificationTriggersDiscovery() {
+	void verificationTriggersDiscovery() {
 
 		Link link = Link.of("target", "rel");
 
@@ -88,7 +88,7 @@ public class DiscoveredResourceUnitTests {
 	}
 
 	@Test
-	public void triggersVerificationOnSubsequentCall() {
+	void triggersVerificationOnSubsequentCall() {
 
 		verificationTriggersDiscovery();
 
@@ -99,7 +99,7 @@ public class DiscoveredResourceUnitTests {
 	}
 
 	@Test
-	public void resetsLinkOnFailedVerification() {
+	void resetsLinkOnFailedVerification() {
 
 		verificationTriggersDiscovery();
 
@@ -110,7 +110,7 @@ public class DiscoveredResourceUnitTests {
 	}
 
 	@Test
-	public void failedDiscoveryTraversalCausesLinkToStayNull() {
+	void failedDiscoveryTraversalCausesLinkToStayNull() {
 
 		doThrow(RuntimeException.class).when(this.provider).getServiceInstance();
 

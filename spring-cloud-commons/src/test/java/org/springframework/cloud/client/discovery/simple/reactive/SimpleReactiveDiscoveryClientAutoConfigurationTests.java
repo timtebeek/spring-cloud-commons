@@ -38,7 +38,7 @@ class SimpleReactiveDiscoveryClientAutoConfigurationTests {
 			AutoConfigurations.of(SimpleReactiveDiscoveryClientAutoConfiguration.class, UtilAutoConfiguration.class));
 
 	@Test
-	public void shouldUseDefaults() {
+	void shouldUseDefaults() {
 		this.contextRunner.run((context) -> {
 			ReactiveDiscoveryClient client = context.getBean(ReactiveDiscoveryClient.class);
 			assertThat(client).isNotNull();
@@ -54,7 +54,7 @@ class SimpleReactiveDiscoveryClientAutoConfigurationTests {
 	}
 
 	@Test
-	public void shouldUseCustomConfiguration() {
+	void shouldUseCustomConfiguration() {
 		this.contextRunner.withUserConfiguration(Configuration.class)
 				.withPropertyValues("spring.application.name=my-service",
 						"spring.cloud.discovery.client.simple.order=1", "server.port=8443")

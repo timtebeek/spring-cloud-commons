@@ -37,15 +37,14 @@ import static org.springframework.cloud.client.discovery.composite.CompositeDisc
  *
  * @author Olga Maciaszek-Sharma
  */
-@SpringBootTest(properties = "spring.cloud.discovery.client.simple.order:2",
-		classes = { CompositeDiscoveryClientTestsConfig.class })
-public class CompositeDiscoveryClientOrderTest {
+@SpringBootTest(properties = "spring.cloud.discovery.client.simple.order:2",classes = {CompositeDiscoveryClientTestsConfig.class})
+class CompositeDiscoveryClientOrderTest {
 
 	@Autowired
 	DiscoveryClient discoveryClient;
 
 	@Test
-	public void shouldGetOrderedDiscoveryClients() {
+	void shouldGetOrderedDiscoveryClients() {
 		// when:
 		List<DiscoveryClient> discoveryClients = ((CompositeDiscoveryClient) this.discoveryClient)
 				.getDiscoveryClients();
@@ -58,7 +57,7 @@ public class CompositeDiscoveryClientOrderTest {
 	}
 
 	@Test
-	public void shouldOnlyReturnServiceInstancesForTheHighestPrecedenceDiscoveryClient() {
+	void shouldOnlyReturnServiceInstancesForTheHighestPrecedenceDiscoveryClient() {
 		// when:
 		List<ServiceInstance> serviceInstances = this.discoveryClient.getInstances(CUSTOM_SERVICE_ID);
 

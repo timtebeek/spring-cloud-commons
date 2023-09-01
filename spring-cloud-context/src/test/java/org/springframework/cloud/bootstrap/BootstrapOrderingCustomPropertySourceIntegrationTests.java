@@ -36,23 +36,22 @@ import org.springframework.test.context.ActiveProfiles;
 
 import static org.assertj.core.api.BDDAssertions.then;
 
-@SpringBootTest(classes = Application.class,
-		properties = { "encrypt.key:deadbeef", "spring.cloud.bootstrap.name:custom",
-				"spring.cloud.bootstrap.enabled=true" })
+@SpringBootTest(classes = Application.class,properties = {"encrypt.key:deadbeef", "spring.cloud.bootstrap.name:custom",
+				"spring.cloud.bootstrap.enabled=true"})
 @ActiveProfiles("encrypt")
-public class BootstrapOrderingCustomPropertySourceIntegrationTests {
+class BootstrapOrderingCustomPropertySourceIntegrationTests {
 
 	@Autowired
 	private ConfigurableEnvironment environment;
 
 	@Test
-	public void bootstrapPropertiesExist() {
+	void bootstrapPropertiesExist() {
 		then(this.environment.getPropertySources().contains("applicationConfig: [classpath:/custom.properties]"))
 				.isTrue();
 	}
 
 	@Test
-	public void customPropertiesDecrypted() {
+	void customPropertiesDecrypted() {
 		then(this.environment.resolvePlaceholders("${custom.foo}")).isEqualTo("bar");
 	}
 

@@ -35,18 +35,18 @@ import static org.mockito.Mockito.when;
  * @author Oliver Gierke
  */
 @ExtendWith(MockitoExtension.class)
-public class DynamicServiceInstanceProviderUnitTests {
+class DynamicServiceInstanceProviderUnitTests {
 
 	@Mock
 	DiscoveryClient client;
 
 	@Test
-	public void returnsNoServiceInCaseNoneIsAvailable() {
+	void returnsNoServiceInCaseNoneIsAvailable() {
 		then(new DynamicServiceInstanceProvider(this.client, "service").getServiceInstance()).isNull();
 	}
 
 	@Test
-	public void returnsFirstServiceInCaseMultipleOnesAreAvailable() {
+	void returnsFirstServiceInCaseMultipleOnesAreAvailable() {
 
 		ServiceInstance first = mock(ServiceInstance.class);
 		ServiceInstance second = mock(ServiceInstance.class);

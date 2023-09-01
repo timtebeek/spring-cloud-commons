@@ -32,10 +32,10 @@ import static org.springframework.boot.WebApplicationType.NONE;
  *
  * @author Biju Kunjummen
  */
-public class BootstrapListenerHierarchyIntegrationTests {
+class BootstrapListenerHierarchyIntegrationTests {
 
 	@Test
-	public void shouldAddInABootstrapContext() {
+	void shouldAddInABootstrapContext() {
 		ConfigurableApplicationContext context = new SpringApplicationBuilder()
 				.properties("spring.cloud.bootstrap.enabled=true").sources(BasicConfiguration.class).web(NONE).run();
 
@@ -43,7 +43,7 @@ public class BootstrapListenerHierarchyIntegrationTests {
 	}
 
 	@Test
-	public void shouldAddInOneBootstrapForABasicParentChildHierarchy() {
+	void shouldAddInOneBootstrapForABasicParentChildHierarchy() {
 		ConfigurableApplicationContext context = new SpringApplicationBuilder()
 				.properties("spring.cloud.bootstrap.enabled=true").sources(RootConfiguration.class).web(NONE)
 				.child(BasicConfiguration.class).web(NONE).run();
@@ -62,7 +62,7 @@ public class BootstrapListenerHierarchyIntegrationTests {
 	}
 
 	@Test
-	public void shouldAddInOneBootstrapForSiblingsBasedHierarchy() {
+	void shouldAddInOneBootstrapForSiblingsBasedHierarchy() {
 		ConfigurableApplicationContext context = new SpringApplicationBuilder()
 				.properties("spring.cloud.bootstrap.enabled=true").sources(RootConfiguration.class).web(NONE)
 				.child(BasicConfiguration.class).web(NONE).sibling(BasicConfiguration.class).web(NONE).run();

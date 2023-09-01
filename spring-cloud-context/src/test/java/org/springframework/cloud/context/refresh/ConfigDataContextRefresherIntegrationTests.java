@@ -34,7 +34,7 @@ import org.springframework.core.env.ConfigurableEnvironment;
 
 import static org.assertj.core.api.BDDAssertions.then;
 
-public class ConfigDataContextRefresherIntegrationTests {
+class ConfigDataContextRefresherIntegrationTests {
 
 	private TestProperties properties;
 
@@ -45,7 +45,7 @@ public class ConfigDataContextRefresherIntegrationTests {
 	private ConfigurableApplicationContext context;
 
 	@BeforeEach
-	public void setup() {
+	void setup() {
 		TestConfigDataLocationResolver.instance = new MyTestBean();
 		System.setProperty("VCAP_SERVICES",
 				"{\"user-provided\":[{\"label\": \"user-provided\",\"name\": \"myvcap\",\"myvar\": \"myval\"}]}");
@@ -58,7 +58,7 @@ public class ConfigDataContextRefresherIntegrationTests {
 	}
 
 	@AfterEach
-	public void after() {
+	void after() {
 		System.clearProperty("VCAP_SERVICES");
 		if (context != null) {
 			context.close();
@@ -68,7 +68,7 @@ public class ConfigDataContextRefresherIntegrationTests {
 	}
 
 	@Test
-	public void testSimpleProperties() {
+	void testSimpleProperties() {
 		then(this.properties.getMessage()).isEqualTo("Hello scope!");
 		// Change the dynamic property source...
 		this.properties.setMessage("Foo");
@@ -77,7 +77,7 @@ public class ConfigDataContextRefresherIntegrationTests {
 	}
 
 	@Test
-	public void testAdditionalPropertySourcesToRetain() {
+	void testAdditionalPropertySourcesToRetain() {
 		then(environment.getProperty(TestEnvPostProcessor.EPP_VALUE)).isEqualTo("1");
 		// ...and then refresh, to see if property source is retained during refresh
 		// that means an updated test datasource with EPP_VALUE set to 10
@@ -87,7 +87,7 @@ public class ConfigDataContextRefresherIntegrationTests {
 	}
 
 	@Test
-	public void testRefreshBean() {
+	void testRefreshBean() {
 		then(this.properties.getMessage()).isEqualTo("Hello scope!");
 		// Change the dynamic property source...
 		this.properties.setMessage("Foo");
@@ -97,14 +97,14 @@ public class ConfigDataContextRefresherIntegrationTests {
 	}
 
 	@Test
-	public void testVcapPlaceholderAfterRefresh() {
+	void testVcapPlaceholderAfterRefresh() {
 		// an error will be thrown if count is 99 and myplaceholder contains ${vcap
 		TestConfigDataLocationResolver.count.set(99);
 		this.refresher.refresh();
 	}
 
 	@Test
-	public void testUpdateHikari() {
+	void testUpdateHikari() {
 		then(this.properties.getMessage()).isEqualTo("Hello scope!");
 		TestPropertyValues.of("spring.datasource.hikari.read-only=true").applyTo(this.environment);
 		// ...and then refresh, so the bean is re-initialized:
@@ -113,7 +113,7 @@ public class ConfigDataContextRefresherIntegrationTests {
 	}
 
 	@Test
-	public void testCachedRandom() {
+	void testCachedRandom() {
 		long cachedRandomLong = properties.getCachedRandomLong();
 		long randomLong = properties.randomLong();
 		then(cachedRandomLong).isNotNull();
@@ -123,7 +123,7 @@ public class ConfigDataContextRefresherIntegrationTests {
 	}
 
 	@Test
-	public void contextContainsBootstrapContext() {
+	void contextContainsBootstrapContext() {
 		ConfigurableBootstrapContext bootstrapContext = context.getBean(ConfigurableBootstrapContext.class);
 		then(bootstrapContext).isNotNull();
 		then(bootstrapContext.isRegistered(MyTestBean.class)).isTrue();

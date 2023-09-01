@@ -34,7 +34,7 @@ import static org.springframework.cloud.configuration.SpringBootVersionVerifier.
  * @author Marcin Grzejszczak
  */
 @SpringBootTest
-public class CompatibilityVerifierAutoConfigurationTests {
+class CompatibilityVerifierAutoConfigurationTests {
 
 	@Autowired
 	MyCompatibilityVerifier myMismatchVerifier;
@@ -43,12 +43,12 @@ public class CompatibilityVerifierAutoConfigurationTests {
 	CompatibilityVerifierProperties verifierProperties;
 
 	@Test
-	public void contextLoads() {
+	void contextLoads() {
 		then(this.myMismatchVerifier.called).isTrue();
 	}
 
 	@Test
-	public void verifierPropertiesContainsCurrentBootVersion() {
+	void verifierPropertiesContainsCurrentBootVersion() {
 		String version = SpringBootVersion.getVersion();
 		assertThat(version).isNotBlank();
 

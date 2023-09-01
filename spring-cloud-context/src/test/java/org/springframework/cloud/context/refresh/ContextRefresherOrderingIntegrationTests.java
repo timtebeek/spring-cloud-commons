@@ -43,7 +43,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest(properties = "spring.cloud.bootstrap.enabled=true")
 @DirtiesContext
-public class ContextRefresherOrderingIntegrationTests {
+class ContextRefresherOrderingIntegrationTests {
 
 	@Autowired
 	private ConfigurableEnvironment environment;
@@ -54,14 +54,14 @@ public class ContextRefresherOrderingIntegrationTests {
 	private static String original;
 
 	@BeforeAll
-	public static void beforeClass() {
+	static void beforeClass() {
 		original = System.getProperty("spring.cloud.bootstrap.sources");
 		System.setProperty("spring.cloud.bootstrap.sources",
 				"org.springframework.cloud.context.refresh.ContextRefresherOrderingIntegrationTests.PropertySourceConfiguration");
 	}
 
 	@AfterAll
-	public static void afterClass() {
+	static void afterClass() {
 		if (original != null) {
 			System.setProperty("spring.cloud.bootstrap.sources", original);
 		}
@@ -71,7 +71,7 @@ public class ContextRefresherOrderingIntegrationTests {
 	}
 
 	@Test
-	public void orderingIsCorrect() {
+	void orderingIsCorrect() {
 		refresher.refresh();
 		MutablePropertySources propertySources = environment.getPropertySources();
 		PropertySource<?> test1 = propertySources.get("bootstrapProperties-testContextRefresherOrdering1");

@@ -48,19 +48,20 @@ import org.springframework.core.env.PropertySource;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.BDDAssertions.then;
 
-public class ContextRefresherTests {
+class ContextRefresherTests {
 
 	private RefreshScope scope = Mockito.mock(RefreshScope.class);
 
 	@AfterEach
-	public void close() {
+	void close() {
 		System.clearProperty(LoggingSystem.SYSTEM_PROPERTY);
 		TestLoggingSystem.count = 0;
 	}
 
+	// FIXME: legacy config
 	@Test
-	@Disabled // FIXME: legacy config
-	public void orderNewPropertiesConsistentWithNewContext() {
+	@Disabled
+	void orderNewPropertiesConsistentWithNewContext() {
 		try (ConfigurableApplicationContext context = SpringApplication.run(Empty.class,
 				"--spring.cloud.bootstrap.enabled=true", "--spring.main.web-application-type=none", "--debug=false",
 				"--spring.main.bannerMode=OFF")) {
@@ -78,7 +79,7 @@ public class ContextRefresherTests {
 	}
 
 	@Test
-	public void bootstrapPropertySourceAlwaysFirst() {
+	void bootstrapPropertySourceAlwaysFirst() {
 		// Use spring.cloud.bootstrap.name to switch off the defaults (which would pick up
 		// a bootstrapProperties immediately
 		try (ConfigurableApplicationContext context = SpringApplication.run(Empty.class,
@@ -99,7 +100,7 @@ public class ContextRefresherTests {
 	}
 
 	@Test
-	public void parentContextIsClosed() {
+	void parentContextIsClosed() {
 		// Use spring.cloud.bootstrap.name to switch off the defaults (which would pick up
 		// a bootstrapProperties immediately
 		try (ConfigurableApplicationContext context = SpringApplication.run(ContextRefresherTests.class,
@@ -118,7 +119,7 @@ public class ContextRefresherTests {
 	}
 
 	@Test
-	public void loggingSystemNotInitialized() {
+	void loggingSystemNotInitialized() {
 		System.setProperty(LoggingSystem.SYSTEM_PROPERTY, TestLoggingSystem.class.getName());
 		TestLoggingSystem system = (TestLoggingSystem) LoggingSystem.get(getClass().getClassLoader());
 		then(system.getCount()).isEqualTo(0);
@@ -133,7 +134,7 @@ public class ContextRefresherTests {
 	}
 
 	@Test
-	public void commandLineArgsPassedToBootstrapConfiguration() {
+	void commandLineArgsPassedToBootstrapConfiguration() {
 
 		TestBootstrapConfiguration.fooSightings = new ArrayList<>();
 
@@ -150,7 +151,7 @@ public class ContextRefresherTests {
 	}
 
 	@Test
-	public void legacyContextRefresherCreatedUsingBootstrapEnabled() {
+	void legacyContextRefresherCreatedUsingBootstrapEnabled() {
 		new ApplicationContextRunner().withConfiguration(AutoConfigurations.of(RefreshAutoConfiguration.class))
 				.withPropertyValues("spring.cloud.bootstrap.enabled=true").run(context -> {
 					assertThat(context).hasSingleBean(LegacyContextRefresher.class);
@@ -159,7 +160,7 @@ public class ContextRefresherTests {
 	}
 
 	@Test
-	public void legacyContextRefresherCreated() {
+	void legacyContextRefresherCreated() {
 		new ApplicationContextRunner().withConfiguration(AutoConfigurations.of(RefreshAutoConfiguration.class))
 				.withPropertyValues("spring.cloud.bootstrap.enabled=true").run(context -> {
 					assertThat(context).hasSingleBean(LegacyContextRefresher.class);
@@ -168,7 +169,7 @@ public class ContextRefresherTests {
 	}
 
 	@Test
-	public void configDataContextRefresherCreated() {
+	void configDataContextRefresherCreated() {
 		new ApplicationContextRunner().withConfiguration(AutoConfigurations.of(RefreshAutoConfiguration.class))
 				.run(context -> {
 					assertThat(context).hasSingleBean(ConfigDataContextRefresher.class);

@@ -30,7 +30,7 @@ import static org.assertj.core.api.BDDAssertions.then;
 /**
  * @author Ryan Baxter
  */
-public class RetryLoadBalancerAutoConfigurationTests extends AbstractLoadBalancerAutoConfigurationTests {
+class RetryLoadBalancerAutoConfigurationTests extends AbstractLoadBalancerAutoConfigurationTests {
 
 	@Override
 	protected void assertLoadBalanced(RestTemplate restTemplate) {
@@ -41,7 +41,7 @@ public class RetryLoadBalancerAutoConfigurationTests extends AbstractLoadBalance
 	}
 
 	@Test
-	public void testRetryDisabled() {
+	void testRetryDisabled() {
 		ConfigurableApplicationContext context = init(OneRestTemplate.class, "spring.aop.proxyTargetClass=true",
 				"spring.cloud.loadbalancer.retry.enabled=false");
 		List<ClientHttpRequestInterceptor> interceptors = context.getBean(RestTemplate.class).getInterceptors();
@@ -51,7 +51,7 @@ public class RetryLoadBalancerAutoConfigurationTests extends AbstractLoadBalance
 	}
 
 	@Test
-	public void testDefaultBackOffPolicy() {
+	void testDefaultBackOffPolicy() {
 		ConfigurableApplicationContext context = init(OneRestTemplate.class);
 		LoadBalancedRetryFactory loadBalancedRetryFactory = context.getBean(LoadBalancedRetryFactory.class);
 		then(loadBalancedRetryFactory).isInstanceOf(LoadBalancedRetryFactory.class);

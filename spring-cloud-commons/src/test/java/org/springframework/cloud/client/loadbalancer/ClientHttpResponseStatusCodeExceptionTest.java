@@ -35,10 +35,10 @@ import static org.assertj.core.api.BDDAssertions.then;
  * @author Ryan Baxter
  */
 @ExtendWith(MockitoExtension.class)
-public class ClientHttpResponseStatusCodeExceptionTest {
+class ClientHttpResponseStatusCodeExceptionTest {
 
 	@Test
-	public void testCreation() throws Exception {
+	void testCreation() throws Exception {
 		MyClientHttpResponse response = new MyClientHttpResponse();
 		then(response.isClosed()).isFalse();
 		ClientHttpResponseStatusCodeException exp = new ClientHttpResponseStatusCodeException("service", response,

@@ -27,20 +27,20 @@ import static org.assertj.core.api.BDDAssertions.then;
 /**
  * @author Dave Syer
  */
-public class HostInfoEnvironmentPostProcessorTests {
+class HostInfoEnvironmentPostProcessorTests {
 
 	private HostInfoEnvironmentPostProcessor processor = new HostInfoEnvironmentPostProcessor();
 
 	private ConfigurableEnvironment environment = new StandardEnvironment();
 
 	@Test
-	public void hostname() {
+	void hostname() {
 		this.processor.postProcessEnvironment(this.environment, new SpringApplication());
 		then(this.environment.getProperty("spring.cloud.client.hostname")).isNotNull();
 	}
 
 	@Test
-	public void ipAddress() {
+	void ipAddress() {
 		this.processor.postProcessEnvironment(this.environment, new SpringApplication());
 		String address = this.environment.getProperty("spring.cloud.client.ip-address");
 		then(address).isNotNull();

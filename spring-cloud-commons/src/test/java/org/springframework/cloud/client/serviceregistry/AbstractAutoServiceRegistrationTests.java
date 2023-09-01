@@ -62,7 +62,7 @@ public class AbstractAutoServiceRegistrationTests {
 	private int managementPort;
 
 	@Test
-	public void portsWork() {
+	void portsWork() {
 		then(this.autoRegistration.getPort().get()).isNotEqualTo(0).as("Lifecycle port is zero");
 		then(this.managementPort).isNotEqualTo(this.autoRegistration.getPort().get())
 				.as("Lifecycle port is management port");
@@ -76,7 +76,7 @@ public class AbstractAutoServiceRegistrationTests {
 	}
 
 	@Test
-	public void eventsFireTest() {
+	void eventsFireTest() {
 		then(this.preEventListener.wasFired).isTrue();
 		then(this.preEventListener.registration.getServiceId()).isEqualTo("testRegistration2");
 		then(this.postEventListener.wasFired).isTrue();

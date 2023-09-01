@@ -19,7 +19,6 @@ package org.springframework.cloud.context.integration;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -43,10 +42,11 @@ import org.springframework.jmx.export.annotation.ManagedResource;
 import org.springframework.test.annotation.DirtiesContext;
 
 import static org.assertj.core.api.BDDAssertions.then;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringBootTest(classes = TestConfiguration.class)
 @SuppressWarnings("Duplicates")
-public class RefreshScopeIntegrationTests {
+class RefreshScopeIntegrationTests {
 
 	@Autowired
 	private Service service;
@@ -58,19 +58,19 @@ public class RefreshScopeIntegrationTests {
 	private org.springframework.cloud.context.scope.refresh.RefreshScope scope;
 
 	@BeforeEach
-	public void init() {
+	void init() {
 		then(ExampleService.getInitCount()).isEqualTo(1);
 		ExampleService.reset();
 	}
 
 	@AfterEach
-	public void close() {
+	void close() {
 		ExampleService.reset();
 	}
 
 	@Test
 	@DirtiesContext
-	public void testSimpleProperties() {
+	void testSimpleProperties() {
 		then(this.service.getMessage()).isEqualTo("Hello scope!");
 		then(this.service instanceof Advised).isTrue();
 		// Change the dynamic property source...
@@ -83,7 +83,7 @@ public class RefreshScopeIntegrationTests {
 
 	@Test
 	@DirtiesContext
-	public void testRefresh() {
+	void testRefresh() {
 		then(this.service.getMessage()).isEqualTo("Hello scope!");
 		String id1 = this.service.toString();
 		// Change the dynamic property source...
@@ -101,7 +101,7 @@ public class RefreshScopeIntegrationTests {
 
 	@Test
 	@DirtiesContext
-	public void testRefreshBean() {
+	void testRefreshBean() {
 		then(this.service.getMessage()).isEqualTo("Hello scope!");
 		String id1 = this.service.toString();
 		// Change the dynamic property source...
@@ -121,8 +121,8 @@ public class RefreshScopeIntegrationTests {
 	// see gh-349
 	@Test
 	@DirtiesContext
-	public void testCheckedException() {
-		Assertions.assertThrows(ServiceException.class, () -> this.service.throwsException());
+	void testCheckedException() {
+		assertThrows(ServiceException.class, () -> this.service.throwsException());
 	}
 
 	public interface Service {

@@ -34,20 +34,18 @@ import static org.springframework.cloud.client.discovery.composite.CompositeDisc
  * @author Biju Kunjummen
  */
 
-@SpringBootTest(
-		properties = { "spring.application.name=service0",
+@SpringBootTest(properties = {"spring.application.name=service0",
 				"spring.cloud.discovery.client.simple.instances.service1[0].uri=http://s11:8080",
 				"spring.cloud.discovery.client.simple.instances.service1[1].uri=https://s12:8443",
 				"spring.cloud.discovery.client.simple.instances.service2[0].uri=https://s21:8080",
-				"spring.cloud.discovery.client.simple.instances.service2[1].uri=https://s22:443" },
-		classes = { CompositeDiscoveryClientTestsConfig.class })
-public class CompositeDiscoveryClientTests {
+				"spring.cloud.discovery.client.simple.instances.service2[1].uri=https://s22:443"},classes = {CompositeDiscoveryClientTestsConfig.class})
+class CompositeDiscoveryClientTests {
 
 	@Autowired
 	private DiscoveryClient discoveryClient;
 
 	@Test
-	public void getInstancesByServiceIdShouldDelegateCall() {
+	void getInstancesByServiceIdShouldDelegateCall() {
 		then(this.discoveryClient).isInstanceOf(CompositeDiscoveryClient.class);
 
 		then(this.discoveryClient.getInstances("service1")).hasSize(2);
@@ -60,23 +58,23 @@ public class CompositeDiscoveryClientTests {
 	}
 
 	@Test
-	public void getServicesShouldAggregateAllServiceNames() {
+	void getServicesShouldAggregateAllServiceNames() {
 		then(this.discoveryClient.getServices()).containsOnlyOnce("service1", "service2", "custom");
 	}
 
 	@Test
-	public void getDescriptionShouldBeComposite() {
+	void getDescriptionShouldBeComposite() {
 		then(this.discoveryClient.description()).isEqualTo("Composite Discovery Client");
 	}
 
 	@Test
-	public void getInstancesShouldRespectOrder() {
+	void getInstancesShouldRespectOrder() {
 		then(this.discoveryClient.getInstances(CUSTOM_SERVICE_ID)).hasSize(1);
 		then(this.discoveryClient.getInstances(CUSTOM_SERVICE_ID)).hasSize(1);
 	}
 
 	@Test
-	public void getInstancesByUnknownServiceIdShouldReturnAnEmptyList() {
+	void getInstancesByUnknownServiceIdShouldReturnAnEmptyList() {
 		then(this.discoveryClient.getInstances("unknown")).hasSize(0);
 	}
 

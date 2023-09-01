@@ -40,10 +40,10 @@ import static org.assertj.core.api.BDDAssertions.then;
  * @author Tommy Karlsson
  * @author Olga Maciaszek-Sharma
  */
-public class NamedContextFactoryTests {
+class NamedContextFactoryTests {
 
 	@Test
-	public void testChildContexts() {
+	void testChildContexts() {
 		AnnotationConfigApplicationContext parent = new AnnotationConfigApplicationContext();
 		parent.register(BaseConfig.class);
 		parent.refresh();

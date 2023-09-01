@@ -59,12 +59,12 @@ class DiscoveryClientHealthIndicatorUnitTests {
 	private DiscoveryClientHealthIndicator indicator;
 
 	@BeforeEach
-	public void prepareMocks() {
+	void prepareMocks() {
 		lenient().when(discoveryClientProvider.getIfAvailable()).thenReturn(discoveryClient);
 	}
 
 	@Test
-	public void shouldReturnUnknownStatusWhenNotInitialized() {
+	void shouldReturnUnknownStatusWhenNotInitialized() {
 		Health expectedHealth = Health.status(new Status(Status.UNKNOWN.getCode(), "Discovery Client not initialized"))
 				.build();
 		Health health = indicator.health();
@@ -72,7 +72,7 @@ class DiscoveryClientHealthIndicatorUnitTests {
 	}
 
 	@Test
-	public void shouldReturnUpStatusWhenNotUsingServicesQueryAndProbeSucceeds() {
+	void shouldReturnUpStatusWhenNotUsingServicesQueryAndProbeSucceeds() {
 		when(properties.isUseServicesQuery()).thenReturn(false);
 		Health expectedHealth = Health.status(new Status(Status.UP.getCode(), "")).build();
 
@@ -83,7 +83,7 @@ class DiscoveryClientHealthIndicatorUnitTests {
 	}
 
 	@Test
-	public void shouldReturnDownStatusWhenNotUsingServicesQueryAndProbeFails() {
+	void shouldReturnDownStatusWhenNotUsingServicesQueryAndProbeFails() {
 		when(properties.isUseServicesQuery()).thenReturn(false);
 		RuntimeException ex = new RuntimeException("something went wrong");
 		doThrow(ex).when(discoveryClient).probe();
@@ -96,7 +96,7 @@ class DiscoveryClientHealthIndicatorUnitTests {
 	}
 
 	@Test
-	public void shouldReturnUpStatusWhenUsingServicesQueryAndNoServicesReturned() {
+	void shouldReturnUpStatusWhenUsingServicesQueryAndNoServicesReturned() {
 		when(properties.isUseServicesQuery()).thenReturn(true);
 		when(discoveryClient.getServices()).thenReturn(Collections.emptyList());
 		Health expectedHealth = Health.status(new Status(Status.UP.getCode(), "")).withDetail("services", emptyList())
@@ -109,7 +109,7 @@ class DiscoveryClientHealthIndicatorUnitTests {
 	}
 
 	@Test
-	public void shouldReturnUpStatusWhenUsingServicesQueryAndServicesReturned() {
+	void shouldReturnUpStatusWhenUsingServicesQueryAndServicesReturned() {
 		when(properties.isUseServicesQuery()).thenReturn(true);
 		when(properties.isIncludeDescription()).thenReturn(true);
 		when(discoveryClient.description()).thenReturn("Mocked Service Discovery Client");
@@ -124,7 +124,7 @@ class DiscoveryClientHealthIndicatorUnitTests {
 	}
 
 	@Test
-	public void shouldReturnDownStatusWhenUsingServicesQueryAndCallFails() {
+	void shouldReturnDownStatusWhenUsingServicesQueryAndCallFails() {
 		when(properties.isUseServicesQuery()).thenReturn(true);
 		RuntimeException ex = new RuntimeException("something went wrong");
 		when(discoveryClient.getServices()).thenThrow(ex);

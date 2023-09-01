@@ -34,12 +34,8 @@ import static org.assertj.core.api.BDDAssertions.then;
  * @author Biju Kunjummen
  */
 
-@SpringBootTest(properties = { "spring.application.name=service0",
-		"spring.cloud.discovery.client.simple.instances.service1[0].uri=http://s11:8080",
-		"spring.cloud.discovery.client.simple.instances.service1[1].uri=https://s12:8443",
-		"spring.cloud.discovery.client.simple.instances.service2[0].uri=https://s21:8080",
-		"spring.cloud.discovery.client.simple.instances.service2[1].uri=https://s22:443" })
-public class SimpleDiscoveryClientPropertiesMappingTests {
+@SpringBootTest(properties = {"spring.application.name=service0","spring.cloud.discovery.client.simple.instances.service1[0].uri=http://s11:8080","spring.cloud.discovery.client.simple.instances.service1[1].uri=https://s12:8443","spring.cloud.discovery.client.simple.instances.service2[0].uri=https://s21:8080","spring.cloud.discovery.client.simple.instances.service2[1].uri=https://s22:443"})
+class SimpleDiscoveryClientPropertiesMappingTests {
 
 	@Autowired
 	private SimpleDiscoveryProperties props;
@@ -48,7 +44,7 @@ public class SimpleDiscoveryClientPropertiesMappingTests {
 	private SimpleDiscoveryClient discoveryClient;
 
 	@Test
-	public void propsShouldGetCleanlyMapped() {
+	void propsShouldGetCleanlyMapped() {
 		then(this.props.getInstances().size()).isEqualTo(2);
 		then(this.props.getInstances().get("service1").size()).isEqualTo(2);
 		then(this.props.getInstances().get("service1").get(0).getHost()).isEqualTo("s11");
@@ -64,7 +60,7 @@ public class SimpleDiscoveryClientPropertiesMappingTests {
 	}
 
 	@Test
-	public void testDiscoveryClientShouldResolveSimpleValues() {
+	void testDiscoveryClientShouldResolveSimpleValues() {
 		then(this.discoveryClient.description()).isEqualTo("Simple Discovery Client");
 		then(this.discoveryClient.getInstances("service1")).hasSize(2);
 
@@ -76,12 +72,12 @@ public class SimpleDiscoveryClientPropertiesMappingTests {
 	}
 
 	@Test
-	public void testGetServices() {
+	void testGetServices() {
 		then(this.discoveryClient.getServices()).containsExactlyInAnyOrder("service1", "service2");
 	}
 
 	@Test
-	public void testGetANonExistentServiceShouldReturnAnEmptyList() {
+	void testGetANonExistentServiceShouldReturnAnEmptyList() {
 		then(this.discoveryClient.getInstances("nonexistent")).isNotNull();
 		then(this.discoveryClient.getInstances("nonexistent")).isEmpty();
 	}

@@ -40,7 +40,7 @@ import static org.assertj.core.api.BDDAssertions.then;
  *
  */
 @SpringBootTest(classes = Application.class)
-public class RefreshScopeWebIntegrationTests {
+class RefreshScopeWebIntegrationTests {
 
 	@Autowired
 	private org.springframework.cloud.context.scope.refresh.RefreshScope scope;
@@ -55,13 +55,13 @@ public class RefreshScopeWebIntegrationTests {
 	private ConfigurableListableBeanFactory beanFactory;
 
 	@Test
-	public void scopeOnBeanDefinition() {
+	void scopeOnBeanDefinition() {
 		then(this.beanFactory.getBeanDefinition(ScopedProxyUtils.getTargetBeanName("application")).getScope())
 				.isEqualTo("refresh");
 	}
 
 	@Test
-	public void beanAccess() {
+	void beanAccess() {
 		this.application.hello();
 		this.environmentManager.setProperty("message", "Hello Dave!");
 		this.scope.refreshAll();

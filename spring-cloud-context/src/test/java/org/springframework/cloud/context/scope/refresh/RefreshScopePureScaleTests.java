@@ -45,10 +45,10 @@ import org.springframework.util.ObjectUtils;
 
 import static org.assertj.core.api.BDDAssertions.then;
 
-@SpringBootTest(classes = TestConfiguration.class)
 // ,
 // properties="logging.level.org.springframework.cloud.context.scope.refresh.RefreshScopePureScaleTests=DEBUG")
-public class RefreshScopePureScaleTests {
+@SpringBootTest(classes = TestConfiguration.class)
+class RefreshScopePureScaleTests {
 
 	private static Log logger = LogFactory.getLog(RefreshScopePureScaleTests.class);
 
@@ -63,7 +63,7 @@ public class RefreshScopePureScaleTests {
 	@Test
 	@Repeat(10)
 	@DirtiesContext
-	public void testConcurrentRefresh() throws Exception {
+	void testConcurrentRefresh() throws Exception {
 
 		// overload the thread pool and try to force Spring to create too many instances
 		int n = 80;

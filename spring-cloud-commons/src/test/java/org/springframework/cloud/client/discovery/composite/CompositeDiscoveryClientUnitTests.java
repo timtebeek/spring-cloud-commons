@@ -41,7 +41,7 @@ import static org.mockito.Mockito.when;
  * @author Sean Ruffatti
  */
 @ExtendWith(MockitoExtension.class)
-public class CompositeDiscoveryClientUnitTests {
+class CompositeDiscoveryClientUnitTests {
 
 	private CompositeDiscoveryClient underTest;
 

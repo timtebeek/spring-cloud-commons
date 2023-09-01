@@ -33,9 +33,8 @@ import org.springframework.test.annotation.DirtiesContext;
 
 import static org.assertj.core.api.BDDAssertions.then;
 
-@SpringBootTest(classes = TestConfiguration.class,
-		properties = { "spring.datasource.hikari.read-only=false", "spring.cloud.bootstrap.enabled=true" })
-public class ContextRefresherIntegrationTests {
+@SpringBootTest(classes = TestConfiguration.class,properties = {"spring.datasource.hikari.read-only=false", "spring.cloud.bootstrap.enabled=true"})
+class ContextRefresherIntegrationTests {
 
 	@Autowired
 	private TestProperties properties;
@@ -48,7 +47,7 @@ public class ContextRefresherIntegrationTests {
 
 	@Test
 	@DirtiesContext
-	public void testSimpleProperties() {
+	void testSimpleProperties() {
 		then(this.properties.getMessage()).isEqualTo("Hello scope!");
 		// Change the dynamic property source...
 		this.properties.setMessage("Foo");
@@ -58,7 +57,7 @@ public class ContextRefresherIntegrationTests {
 
 	@Test
 	@DirtiesContext
-	public void testRefreshBean() {
+	void testRefreshBean() {
 		then(this.properties.getMessage()).isEqualTo("Hello scope!");
 		// Change the dynamic property source...
 		this.properties.setMessage("Foo");
@@ -69,7 +68,7 @@ public class ContextRefresherIntegrationTests {
 
 	@Test
 	@DirtiesContext
-	public void testUpdateHikari() {
+	void testUpdateHikari() {
 		then(this.properties.getMessage()).isEqualTo("Hello scope!");
 		TestPropertyValues.of("spring.datasource.hikari.read-only=true").applyTo(this.environment);
 		// ...and then refresh, so the bean is re-initialized:
@@ -79,7 +78,7 @@ public class ContextRefresherIntegrationTests {
 
 	@Test
 	@DirtiesContext
-	public void testCachedRandom() {
+	void testCachedRandom() {
 		long cachedRandomLong = properties.getCachedRandomLong();
 		long randomLong = properties.randomLong();
 		then(cachedRandomLong).isNotNull();

@@ -35,26 +35,26 @@ import static org.assertj.core.api.BDDAssertions.then;
 /**
  * @author Spencer Gibb
  */
-public class FeaturesEndpointTests {
+class FeaturesEndpointTests {
 
 	private AnnotationConfigApplicationContext context;
 
 	@BeforeEach
-	public void setup() {
+	void setup() {
 		this.context = new AnnotationConfigApplicationContext();
 		this.context.register(JacksonAutoConfiguration.class, FeaturesConfig.class, Config.class);
 		this.context.refresh();
 	}
 
 	@AfterEach
-	public void close() {
+	void close() {
 		if (this.context != null) {
 			this.context.close();
 		}
 	}
 
 	@Test
-	public void invokeWorks() {
+	void invokeWorks() {
 		FeaturesEndpoint.Features features = this.context.getBean(FeaturesEndpoint.class).features();
 		then(features).isNotNull();
 		then(features.getEnabled()).hasSize(2).contains(newFeature("foo", Foo.class),

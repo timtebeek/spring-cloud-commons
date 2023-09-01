@@ -33,13 +33,13 @@ import static org.assertj.core.api.BDDAssertions.then;
  * @author Biju Kunjummen
  */
 @SpringBootTest(classes = DiscoveryClientAutoConfigurationDefaultTests.Config.class)
-public class DiscoveryClientAutoConfigurationDefaultTests {
+class DiscoveryClientAutoConfigurationDefaultTests {
 
 	@Autowired
 	private DiscoveryClient discoveryClient;
 
 	@Test
-	public void simpleDiscoveryClientShouldBeTheDefault() {
+	void simpleDiscoveryClientShouldBeTheDefault() {
 		then(this.discoveryClient).isInstanceOf(CompositeDiscoveryClient.class);
 	}
 

@@ -31,15 +31,15 @@ import static org.assertj.core.api.BDDAssertions.then;
 /**
  * @author Spencer Gibb
  */
-@ClassPathExclusions({ "spring-boot-actuator-*.jar", "spring-boot-starter-actuator-*.jar" })
-public class RefreshAutoConfigurationClassPathTests {
+@ClassPathExclusions({"spring-boot-actuator-*.jar", "spring-boot-starter-actuator-*.jar"})
+class RefreshAutoConfigurationClassPathTests {
 
 	private static ConfigurableApplicationContext getApplicationContext(Class<?> configuration, String... properties) {
 		return new SpringApplicationBuilder(configuration).web(WebApplicationType.NONE).properties(properties).run();
 	}
 
 	@Test
-	public void refreshEventListenerCreated() {
+	void refreshEventListenerCreated() {
 		try (ConfigurableApplicationContext context = getApplicationContext(Config.class)) {
 			then(context.getBeansOfType(RefreshEventListener.class)).as("RefreshEventListeners not created")
 					.isNotEmpty();

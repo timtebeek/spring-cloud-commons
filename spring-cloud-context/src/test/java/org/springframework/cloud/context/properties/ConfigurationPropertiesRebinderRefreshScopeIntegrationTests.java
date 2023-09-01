@@ -38,7 +38,7 @@ import org.springframework.test.annotation.DirtiesContext;
 import static org.assertj.core.api.BDDAssertions.then;
 
 @SpringBootTest(classes = TestConfiguration.class, properties = "spring.cloud.bootstrap.enabled=true")
-public class ConfigurationPropertiesRebinderRefreshScopeIntegrationTests {
+class ConfigurationPropertiesRebinderRefreshScopeIntegrationTests {
 
 	@Autowired
 	private TestProperties properties;
@@ -54,7 +54,7 @@ public class ConfigurationPropertiesRebinderRefreshScopeIntegrationTests {
 
 	@Test
 	@DirtiesContext
-	public void testSimpleProperties() {
+	void testSimpleProperties() {
 		then(this.properties.getMessage()).isEqualTo("Hello scope!");
 		// Change the dynamic property source...
 		TestPropertyValues.of("message:Foo").applyTo(this.environment);
@@ -65,7 +65,7 @@ public class ConfigurationPropertiesRebinderRefreshScopeIntegrationTests {
 
 	@Test
 	@DirtiesContext
-	public void testRefresh() {
+	void testRefresh() {
 		then(this.properties.getCount()).isEqualTo(1);
 		then(this.properties.getMessage()).isEqualTo("Hello scope!");
 		then(this.properties.getCount()).isEqualTo(1);

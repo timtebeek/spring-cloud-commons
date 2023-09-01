@@ -28,10 +28,10 @@ import static org.assertj.core.api.BDDAssertions.then;
 /**
  * @author Marcin Grzejszczak
  */
-public class SpringBootDependencyTests {
+class SpringBootDependencyTests {
 
 	@Test
-	public void should_read_concrete_version_from_manifest() {
+	void should_read_concrete_version_from_manifest() {
 		List<String> acceptedVersions = Collections.singletonList("2.1.3.RELEASE");
 		SpringBootVersionVerifier versionVerifier = new SpringBootVersionVerifier(acceptedVersions) {
 			@Override
@@ -48,7 +48,7 @@ public class SpringBootDependencyTests {
 	}
 
 	@Test
-	public void should_read_concrete_version_from_manifest_and_return_false_when_version_is_not_matched() {
+	void should_read_concrete_version_from_manifest_and_return_false_when_version_is_not_matched() {
 		List<String> acceptedVersions = Collections.singletonList("2.1.9.RELEASE");
 		SpringBootVersionVerifier versionVerifier = new SpringBootVersionVerifier(acceptedVersions) {
 			@Override
@@ -65,7 +65,7 @@ public class SpringBootDependencyTests {
 	}
 
 	@Test
-	public void should_read_concrete_version_from_manifest_and_return_false_when_minor_version_is_not_matched() {
+	void should_read_concrete_version_from_manifest_and_return_false_when_minor_version_is_not_matched() {
 		List<String> acceptedVersions = Collections.singletonList("2.1");
 		SpringBootVersionVerifier versionVerifier = new SpringBootVersionVerifier(acceptedVersions) {
 			@Override
@@ -82,7 +82,7 @@ public class SpringBootDependencyTests {
 	}
 
 	@Test
-	public void should_read_concrete_version_from_manifest_and_match_it_against_minor_version() {
+	void should_read_concrete_version_from_manifest_and_match_it_against_minor_version() {
 		List<String> acceptedVersions = Collections.singletonList("2.1");
 		SpringBootVersionVerifier versionVerifier = new SpringBootVersionVerifier(acceptedVersions) {
 			@Override
@@ -99,7 +99,7 @@ public class SpringBootDependencyTests {
 	}
 
 	@Test
-	public void should_match_against_predicate() {
+	void should_match_against_predicate() {
 		List<String> acceptedVersions = Collections.singletonList("2.5");
 		SpringBootVersionVerifier versionVerifier = new SpringBootVersionVerifier(acceptedVersions) {
 			@Override
@@ -117,7 +117,7 @@ public class SpringBootDependencyTests {
 	}
 
 	@Test
-	public void should_fail_to_match_against_predicate_when_none_is_matching() {
+	void should_fail_to_match_against_predicate_when_none_is_matching() {
 		List<String> acceptedVersions = Collections.singletonList("2.5");
 		SpringBootVersionVerifier versionVerifier = new SpringBootVersionVerifier(acceptedVersions) {
 			@Override
@@ -134,7 +134,7 @@ public class SpringBootDependencyTests {
 	}
 
 	@Test
-	public void should_not_match_when_manifest_has_version_and_not_compatible() {
+	void should_not_match_when_manifest_has_version_and_not_compatible() {
 		List<String> acceptedVersions = Collections.singletonList("2.5");
 		SpringBootVersionVerifier versionVerifier = new SpringBootVersionVerifier(acceptedVersions) {
 			@Override
@@ -154,7 +154,7 @@ public class SpringBootDependencyTests {
 	}
 
 	@Test
-	public void should_match_when_manifest_has_version_and_compatible_list() {
+	void should_match_when_manifest_has_version_and_compatible_list() {
 		List<String> acceptedVersions = Arrays.asList("2.0", "2.1");
 		SpringBootVersionVerifier versionVerifier = new SpringBootVersionVerifier(acceptedVersions) {
 			@Override
@@ -174,7 +174,7 @@ public class SpringBootDependencyTests {
 	}
 
 	@Test
-	public void should_match_against_current_manifest() {
+	void should_match_against_current_manifest() {
 		try {
 			verifyCurrentVersionFromManifest("3.2");
 			verifyCurrentVersionFromManifest("3.2.x");
@@ -203,7 +203,7 @@ public class SpringBootDependencyTests {
 	}
 
 	@Test
-	public void should_match_against_current_predicate() {
+	void should_match_against_current_predicate() {
 		List<String> acceptedVersions = Collections.singletonList("3.0");
 		SpringBootVersionVerifier versionVerifier = new SpringBootVersionVerifier(acceptedVersions) {
 			@Override
@@ -221,7 +221,7 @@ public class SpringBootDependencyTests {
 	}
 
 	@Test
-	public void should_match_against_current_predicate_with_version_ending_with_x() {
+	void should_match_against_current_predicate_with_version_ending_with_x() {
 		List<String> acceptedVersions = Collections.singletonList("3.0.x");
 		SpringBootVersionVerifier versionVerifier = new SpringBootVersionVerifier(acceptedVersions) {
 			@Override
@@ -239,7 +239,7 @@ public class SpringBootDependencyTests {
 	}
 
 	@Test
-	public void should_fail_to_match_against_predicate_for_non_current_versions() {
+	void should_fail_to_match_against_predicate_for_non_current_versions() {
 		List<String> acceptedVersions = Collections.singletonList("2.1");
 		SpringBootVersionVerifier versionVerifier = new SpringBootVersionVerifier(acceptedVersions) {
 			@Override

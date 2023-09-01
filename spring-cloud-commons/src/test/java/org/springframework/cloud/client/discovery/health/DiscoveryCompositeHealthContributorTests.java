@@ -35,16 +35,16 @@ import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException
  *
  * @author Phillip Webb
  */
-public class DiscoveryCompositeHealthContributorTests {
+class DiscoveryCompositeHealthContributorTests {
 
 	@Test
-	public void createWhenIndicatorsAreNullThrowsException() {
+	void createWhenIndicatorsAreNullThrowsException() {
 		assertThatIllegalArgumentException().isThrownBy(() -> new DiscoveryCompositeHealthContributor(null))
 				.withMessage("'indicators' must not be null");
 	}
 
 	@Test
-	public void getContributorReturnsContributor() {
+	void getContributorReturnsContributor() {
 		TestDiscoveryHealthIndicator indicator = new TestDiscoveryHealthIndicator("test", Health.up().build());
 		DiscoveryCompositeHealthContributor composite = new DiscoveryCompositeHealthContributor(List.of(indicator));
 		HealthIndicator adapted = (HealthIndicator) composite.getContributor("test");
@@ -53,14 +53,14 @@ public class DiscoveryCompositeHealthContributorTests {
 	}
 
 	@Test
-	public void getContributorWhenMissingReturnsNull() {
+	void getContributorWhenMissingReturnsNull() {
 		TestDiscoveryHealthIndicator indicator = new TestDiscoveryHealthIndicator("test", Health.up().build());
 		DiscoveryCompositeHealthContributor composite = new DiscoveryCompositeHealthContributor(List.of(indicator));
 		assertThat((HealthIndicator) composite.getContributor("missing")).isNull();
 	}
 
 	@Test
-	public void iteratorIteratesNamedContributors() {
+	void iteratorIteratesNamedContributors() {
 		TestDiscoveryHealthIndicator indicator1 = new TestDiscoveryHealthIndicator("test1", Health.up().build());
 		TestDiscoveryHealthIndicator indicator2 = new TestDiscoveryHealthIndicator("test2", Health.down().build());
 		DiscoveryCompositeHealthContributor composite = new DiscoveryCompositeHealthContributor(

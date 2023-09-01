@@ -32,7 +32,7 @@ import org.springframework.core.io.Resource;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class SSHContextFactoryTests {
+class SSHContextFactoryTests {
 
 	private static final String KEY_STORE_PASSWORD = "test-key-store-password";
 
@@ -41,7 +41,7 @@ public class SSHContextFactoryTests {
 	private TlsProperties properties;
 
 	@BeforeEach
-	public void createProperties() {
+	void createProperties() {
 		properties = new TlsProperties();
 
 		properties.setEnabled(true);
@@ -57,7 +57,7 @@ public class SSHContextFactoryTests {
 	}
 
 	@Test
-	public void createKeyStoreFromProperties() throws GeneralSecurityException, IOException {
+	void createKeyStoreFromProperties() throws GeneralSecurityException, IOException {
 		SSLContextFactory factory = new SSLContextFactory(properties);
 		KeyStore store = factory.createKeyStore();
 
@@ -69,7 +69,7 @@ public class SSHContextFactoryTests {
 	}
 
 	@Test
-	public void createTrustStoreFromProperties() throws GeneralSecurityException, IOException {
+	void createTrustStoreFromProperties() throws GeneralSecurityException, IOException {
 		SSLContextFactory factory = new SSLContextFactory(properties);
 		KeyStore store = factory.createTrustStore();
 
@@ -78,7 +78,7 @@ public class SSHContextFactoryTests {
 	}
 
 	@Test
-	public void createSSLContextFromProperties() throws GeneralSecurityException, IOException {
+	void createSSLContextFromProperties() throws GeneralSecurityException, IOException {
 		SSLContextFactory factory = new SSLContextFactory(properties);
 		SSLContext context = factory.createSSLContext();
 		assertThat(context).isNotNull();

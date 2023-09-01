@@ -21,10 +21,10 @@ import java.util.concurrent.atomic.AtomicInteger;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-public class CustomizerTests {
+class CustomizerTests {
 
 	@Test
-	public void testCustomizedOnlyOnce() {
+	void testCustomizedOnlyOnce() {
 		AtomicInteger counter = new AtomicInteger(0);
 		final Customizer<AtomicInteger> customizer = Customizer.once(AtomicInteger::incrementAndGet, Object::hashCode);
 		customizer.customize(counter);

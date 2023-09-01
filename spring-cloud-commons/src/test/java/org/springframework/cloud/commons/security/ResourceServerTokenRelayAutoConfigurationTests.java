@@ -32,19 +32,19 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  */
 @Disabled
-public class ResourceServerTokenRelayAutoConfigurationTests {
+class ResourceServerTokenRelayAutoConfigurationTests {
 
 	private ConfigurableApplicationContext context;
 
 	@AfterEach
-	public void close() {
+	void close() {
 		if (this.context != null) {
 			this.context.close();
 		}
 	}
 
 	@Test
-	public void clientNotConfigured() {
+	void clientNotConfigured() {
 		this.context = new SpringApplicationBuilder(NoClientConfiguration.class)
 				.properties("spring.config.name=test", "server.port=0", "spring.cloud.mvc.token-relay.enabled=true",
 						"security.oauth2.resource.userInfoUri:https://example.com")
@@ -53,7 +53,7 @@ public class ResourceServerTokenRelayAutoConfigurationTests {
 	}
 
 	@Test
-	public void clientConfigured() throws Exception {
+	void clientConfigured() throws Exception {
 		/*
 		 * this.context = new
 		 * SpringApplicationBuilder(ClientConfiguration.class).properties(

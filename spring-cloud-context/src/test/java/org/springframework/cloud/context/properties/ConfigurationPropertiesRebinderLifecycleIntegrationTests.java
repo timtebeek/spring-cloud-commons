@@ -38,7 +38,7 @@ import org.springframework.test.annotation.DirtiesContext;
 import static org.assertj.core.api.BDDAssertions.then;
 
 @SpringBootTest(classes = TestConfiguration.class)
-public class ConfigurationPropertiesRebinderLifecycleIntegrationTests {
+class ConfigurationPropertiesRebinderLifecycleIntegrationTests {
 
 	@Autowired
 	private TestProperties properties;
@@ -51,7 +51,7 @@ public class ConfigurationPropertiesRebinderLifecycleIntegrationTests {
 
 	@Test
 	@DirtiesContext
-	public void testRefresh() {
+	void testRefresh() {
 		then(this.properties.getCount()).isEqualTo(0);
 		then(this.properties.getMessage()).isEqualTo("Hello scope!");
 		// Change the dynamic property source...

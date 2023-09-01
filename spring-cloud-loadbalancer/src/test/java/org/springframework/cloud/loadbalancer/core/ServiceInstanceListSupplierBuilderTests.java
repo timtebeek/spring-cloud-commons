@@ -31,10 +31,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.Mockito.mock;
 
-public class ServiceInstanceListSupplierBuilderTests {
+class ServiceInstanceListSupplierBuilderTests {
 
 	@Test
-	public void testBuilder() {
+	void testBuilder() {
 		new ApplicationContextRunner().withUserConfiguration(CacheTestConfig.class).run(context -> {
 			ServiceInstanceListSupplier supplier = ServiceInstanceListSupplier.builder().withDiscoveryClient()
 					.withHealthChecks().withWeighted().build(context);
@@ -47,7 +47,7 @@ public class ServiceInstanceListSupplierBuilderTests {
 	}
 
 	@Test
-	public void testIllegalArgumentExceptionThrownWhenBaseBuilderNull() {
+	void testIllegalArgumentExceptionThrownWhenBaseBuilderNull() {
 		new ApplicationContextRunner().withUserConfiguration(CacheTestConfig.class).run(context -> {
 			try {
 				ServiceInstanceListSupplier.builder().withHealthChecks().build(context);
@@ -61,7 +61,7 @@ public class ServiceInstanceListSupplierBuilderTests {
 	}
 
 	@Test
-	public void testDelegateReturnedIfLoadBalancerCacheManagerNotAvailable() {
+	void testDelegateReturnedIfLoadBalancerCacheManagerNotAvailable() {
 		new ApplicationContextRunner().withUserConfiguration(BaseTestConfig.class).run(context -> {
 			ServiceInstanceListSupplier supplier = ServiceInstanceListSupplier.builder().withDiscoveryClient()
 					.withHealthChecks().withCaching().build(context);

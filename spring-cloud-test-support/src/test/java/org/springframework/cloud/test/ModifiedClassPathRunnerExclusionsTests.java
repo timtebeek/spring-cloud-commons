@@ -28,22 +28,22 @@ import static org.hamcrest.CoreMatchers.isA;
  * @author Andy Wilkinson
  */
 @ClassPathExclusions("hibernate-validator-*.jar")
-public class ModifiedClassPathRunnerExclusionsTests {
+class ModifiedClassPathRunnerExclusionsTests {
 
 	private static final String EXCLUDED_RESOURCE = "META-INF/services/" + "javax.validation.spi.ValidationProvider";
 
 	@Test
-	public void entriesAreFilteredFromTestClassClassLoader() {
+	void entriesAreFilteredFromTestClassClassLoader() {
 		assertThat(getClass().getClassLoader().getResource(EXCLUDED_RESOURCE)).isNull();
 	}
 
 	@Test
-	public void entriesAreFilteredFromThreadContextClassLoader() {
+	void entriesAreFilteredFromThreadContextClassLoader() {
 		assertThat(Thread.currentThread().getContextClassLoader().getResource(EXCLUDED_RESOURCE)).isNull();
 	}
 
 	@Test
-	public void testsThatUseHamcrestWorkCorrectly() {
+	void testsThatUseHamcrestWorkCorrectly() {
 		Matcher<IllegalStateException> matcher = isA(IllegalStateException.class);
 		assertThat(matcher.matches(new IllegalStateException())).isTrue();
 	}

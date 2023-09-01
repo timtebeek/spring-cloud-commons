@@ -22,7 +22,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
@@ -46,19 +45,20 @@ import org.springframework.core.env.PropertySource;
 import org.springframework.core.env.StandardEnvironment;
 
 import static org.assertj.core.api.BDDAssertions.then;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * @author Dave Syer
  *
  */
-public class BootstrapConfigurationTests {
+class BootstrapConfigurationTests {
 
 	private ConfigurableApplicationContext context;
 
 	private ConfigurableApplicationContext sibling;
 
 	@AfterEach
-	public void close() {
+	void close() {
 		// Expected.* is bound to the PropertySourceConfiguration below
 		System.clearProperty("expected.name");
 		System.clearProperty("expected.fail");
@@ -76,14 +76,14 @@ public class BootstrapConfigurationTests {
 	}
 
 	@Test
-	public void pickupOnlyExternalBootstrapProperties() {
+	void pickupOnlyExternalBootstrapProperties() {
 		String externalPropertiesPath = getExternalProperties();
 		pickupOnlyExternalBootstrapProperties("spring.cloud.bootstrap.location=" + externalPropertiesPath,
 				"spring.config.use-legacy-processing=true");
 	}
 
 	@Test
-	public void pickupOnlyExternalBootstrapPropertiesWithAppListener() {
+	void pickupOnlyExternalBootstrapPropertiesWithAppListener() {
 		String externalPropertiesPath = getExternalProperties();
 		pickupOnlyExternalBootstrapProperties("spring.cloud.bootstrap.location=" + externalPropertiesPath,
 				"spring.config.use-legacy-processing=true", "spring.cloud.config.initialize-on-context-refresh=true");
@@ -100,7 +100,7 @@ public class BootstrapConfigurationTests {
 	}
 
 	@Test
-	public void pickupAdditionalExternalBootstrapProperties() {
+	void pickupAdditionalExternalBootstrapProperties() {
 		String externalPropertiesPath = getExternalProperties();
 		pickupAdditionalExternalBootstrapProperties(
 				"spring.cloud.bootstrap.additional-location=" + externalPropertiesPath,
@@ -108,7 +108,7 @@ public class BootstrapConfigurationTests {
 	}
 
 	@Test
-	public void pickupAdditionalExternalBootstrapPropertiesWithAppListener() {
+	void pickupAdditionalExternalBootstrapPropertiesWithAppListener() {
 		String externalPropertiesPath = getExternalProperties();
 		pickupAdditionalExternalBootstrapProperties(
 				"spring.cloud.bootstrap.additional-location=" + externalPropertiesPath,
@@ -126,12 +126,12 @@ public class BootstrapConfigurationTests {
 	}
 
 	@Test
-	public void bootstrapPropertiesAvailableInInitializer() {
+	void bootstrapPropertiesAvailableInInitializer() {
 		bootstrapPropertiesAvailableInInitializer("spring.config.use-legacy-processing=true");
 	}
 
 	@Test
-	public void bootstrapPropertiesAvailableInInitializerWithAppContext() {
+	void bootstrapPropertiesAvailableInInitializerWithAppContext() {
 		bootstrapPropertiesAvailableInInitializer("spring.config.use-legacy-processing=true",
 				"spring.cloud.config.initialize-on-context-refresh=true");
 	}
@@ -158,12 +158,12 @@ public class BootstrapConfigurationTests {
 	}
 
 	@Test
-	public void picksUpAdditionalPropertySource() {
+	void picksUpAdditionalPropertySource() {
 		picksUpAdditionalPropertySource("spring.config.use-legacy-processing=true");
 	}
 
 	@Test
-	public void picksUpAdditionalPropertySourceWithAppContext() {
+	void picksUpAdditionalPropertySourceWithAppContext() {
 		picksUpAdditionalPropertySource("spring.config.use-legacy-processing=true",
 				"spring.cloud.config.initialize-on-context-refresh=true");
 	}
@@ -179,19 +179,19 @@ public class BootstrapConfigurationTests {
 	}
 
 	@Test
-	public void failsOnPropertySource() {
+	void failsOnPropertySource() {
 		failsOnPropertySource("spring.config.use-legacy-processing=true");
 	}
 
 	@Test
-	public void failsOnPropertySourceWithAppContext() {
+	void failsOnPropertySourceWithAppContext() {
 		failsOnPropertySource("spring.config.use-legacy-processing=true",
 				"spring.cloud.config.initialize-on-context-refresh=true");
 	}
 
 	private void failsOnPropertySource(String... properties) {
 		System.setProperty("expected.fail", "true");
-		Throwable throwable = Assertions.assertThrows(RuntimeException.class, () -> {
+		Throwable throwable = assertThrows(RuntimeException.class, () -> {
 			this.context = new SpringApplicationBuilder().web(WebApplicationType.NONE).properties(properties)
 					.sources(BareConfiguration.class).run();
 		});
@@ -199,13 +199,13 @@ public class BootstrapConfigurationTests {
 	}
 
 	@Test
-	public void overrideSystemPropertySourceByDefault() {
+	void overrideSystemPropertySourceByDefault() {
 		overrideSystemPropertySourceByDefault("spring.config.use-legacy-processing=true");
 
 	}
 
 	@Test
-	public void overrideSystemPropertySourceByDefaultWithAppContext() {
+	void overrideSystemPropertySourceByDefaultWithAppContext() {
 		overrideSystemPropertySourceByDefault("spring.config.use-legacy-processing=true",
 				"spring.cloud.config.initialize-on-context-refresh=true");
 
@@ -220,12 +220,12 @@ public class BootstrapConfigurationTests {
 	}
 
 	@Test
-	public void systemPropertyOverrideFalse() {
+	void systemPropertyOverrideFalse() {
 		systemPropertyOverrideFalse("spring.config.use-legacy-processing=true");
 	}
 
 	@Test
-	public void systemPropertyOverrideFalseWithAppContext() {
+	void systemPropertyOverrideFalseWithAppContext() {
 		systemPropertyOverrideFalse("spring.config.use-legacy-processing=true",
 				"spring.cloud.config.initialize-on-context-refresh=true");
 	}
@@ -240,12 +240,12 @@ public class BootstrapConfigurationTests {
 	}
 
 	@Test
-	public void systemPropertyOverrideWhenOverrideDisallowed() {
+	void systemPropertyOverrideWhenOverrideDisallowed() {
 		systemPropertyOverrideWhenOverrideDisallowed("spring.config.use-legacy-processing=true");
 	}
 
 	@Test
-	public void systemPropertyOverrideWhenOverrideDisallowedWithAppContext() {
+	void systemPropertyOverrideWhenOverrideDisallowedWithAppContext() {
 		systemPropertyOverrideWhenOverrideDisallowed("spring.config.use-legacy-processing=true",
 				"spring.cloud.config.initialize-on-context-refresh=true");
 	}
@@ -264,12 +264,12 @@ public class BootstrapConfigurationTests {
 	}
 
 	@Test
-	public void systemPropertyOverrideFalseWhenOverrideAllowed() {
+	void systemPropertyOverrideFalseWhenOverrideAllowed() {
 		systemPropertyOverrideFalseWhenOverrideAllowed("spring.config.use-legacy-processing=true");
 	}
 
 	@Test
-	public void systemPropertyOverrideFalseWhenOverrideAllowedWithAppContext() {
+	void systemPropertyOverrideFalseWhenOverrideAllowedWithAppContext() {
 		systemPropertyOverrideFalseWhenOverrideAllowed("spring.config.use-legacy-processing=true",
 				"spring.cloud.config.initialize-on-context-refresh=true");
 	}
@@ -285,12 +285,12 @@ public class BootstrapConfigurationTests {
 	}
 
 	@Test
-	public void overrideAllWhenOverrideAllowed() {
+	void overrideAllWhenOverrideAllowed() {
 		overrideAllWhenOverrideAllowed("spring.config.use-legacy-processing=true");
 	}
 
 	@Test
-	public void overrideAllWhenOverrideAllowedWithAppContext() {
+	void overrideAllWhenOverrideAllowedWithAppContext() {
 		overrideAllWhenOverrideAllowed("spring.config.use-legacy-processing=true",
 				"spring.cloud.config.initialize-on-context-refresh=true");
 	}
@@ -308,13 +308,13 @@ public class BootstrapConfigurationTests {
 	}
 
 	@Test
-	public void applicationNameInBootstrapAndMain() {
+	void applicationNameInBootstrapAndMain() {
 		applicationNameInBootstrapAndMain("spring.cloud.bootstrap.name:other",
 				"spring.config.use-legacy-processing=true", "spring.config.name:plain");
 	}
 
 	@Test
-	public void applicationNameInBootstrapAndMainWithAppContext() {
+	void applicationNameInBootstrapAndMainWithAppContext() {
 		applicationNameInBootstrapAndMain("spring.cloud.bootstrap.name:other",
 				"spring.config.use-legacy-processing=true", "spring.config.name:plain",
 				"spring.cloud.config.initialize-on-context-refresh=true");
@@ -335,13 +335,13 @@ public class BootstrapConfigurationTests {
 	}
 
 	@Test
-	public void applicationNameNotInBootstrap() {
+	void applicationNameNotInBootstrap() {
 		applicationNameNotInBootstrap("spring.cloud.bootstrap.name:application",
 				"spring.config.use-legacy-processing=true", "spring.config.name:other");
 	}
 
 	@Test
-	public void applicationNameNotInBootstrapWithAppContext() {
+	void applicationNameNotInBootstrapWithAppContext() {
 		applicationNameNotInBootstrap("spring.cloud.bootstrap.name:application",
 				"spring.config.use-legacy-processing=true", "spring.config.name:other",
 				"spring.cloud.config.initialize-on-context-refresh=true");
@@ -358,12 +358,12 @@ public class BootstrapConfigurationTests {
 	}
 
 	@Test
-	public void applicationNameOnlyInBootstrap() {
+	void applicationNameOnlyInBootstrap() {
 		applicationNameOnlyInBootstrap("spring.cloud.bootstrap.name:other", "spring.config.use-legacy-processing=true");
 	}
 
 	@Test
-	public void applicationNameOnlyInBootstrapWithAppContext() {
+	void applicationNameOnlyInBootstrapWithAppContext() {
 		applicationNameOnlyInBootstrap("spring.cloud.bootstrap.name:other", "spring.config.use-legacy-processing=true",
 				"spring.cloud.config.initialize-on-context-refresh=true");
 	}
@@ -382,12 +382,12 @@ public class BootstrapConfigurationTests {
 	}
 
 	@Test
-	public void environmentEnrichedOnceWhenSharedWithChildContext() {
+	void environmentEnrichedOnceWhenSharedWithChildContext() {
 		environmentEnrichedOnceWhenSharedWithChildContext("spring.config.use-legacy-processing=true");
 	}
 
 	@Test
-	public void environmentEnrichedOnceWhenSharedWithChildContextWithAppContext() {
+	void environmentEnrichedOnceWhenSharedWithChildContextWithAppContext() {
 		environmentEnrichedOnceWhenSharedWithChildContext("spring.config.use-legacy-processing=true",
 				"spring.cloud.config.initialize-on-context-refresh=true");
 	}
@@ -407,12 +407,12 @@ public class BootstrapConfigurationTests {
 	}
 
 	@Test
-	public void onlyOneBootstrapContext() {
+	void onlyOneBootstrapContext() {
 		onlyOneBootstrapContext("spring.config.use-legacy-processing=true");
 	}
 
 	@Test
-	public void onlyOneBootstrapContextWithAppContext() {
+	void onlyOneBootstrapContextWithAppContext() {
 		onlyOneBootstrapContext("spring.config.use-legacy-processing=true",
 				"spring.cloud.config.initialize-on-context-refresh=true");
 	}
@@ -430,12 +430,12 @@ public class BootstrapConfigurationTests {
 	}
 
 	@Test
-	public void listOverride() {
+	void listOverride() {
 		listOverride("spring.config.use-legacy-processing=true");
 	}
 
 	@Test
-	public void listOverrideWithAppContext() {
+	void listOverrideWithAppContext() {
 		listOverride("spring.config.use-legacy-processing=true",
 				"spring.cloud.config.initialize-on-context-refresh=true");
 	}
@@ -450,12 +450,12 @@ public class BootstrapConfigurationTests {
 	}
 
 	@Test
-	public void bootstrapContextSharedBySiblings() {
+	void bootstrapContextSharedBySiblings() {
 		bootstrapContextSharedBySiblings("spring.config.use-legacy-processing=true");
 	}
 
 	@Test
-	public void bootstrapContextSharedBySiblingsWithAppContext() {
+	void bootstrapContextSharedBySiblingsWithAppContext() {
 		bootstrapContextSharedBySiblings("spring.config.use-legacy-processing=true",
 				"spring.cloud.config.initialize-on-context-refresh=true");
 	}
@@ -483,12 +483,12 @@ public class BootstrapConfigurationTests {
 	}
 
 	@Test
-	public void environmentEnrichedInParentContext() {
+	void environmentEnrichedInParentContext() {
 		environmentEnrichedInParentContext("spring.config.use-legacy-processing=true");
 	}
 
 	@Test
-	public void environmentEnrichedInParentContextWithAppContext() {
+	void environmentEnrichedInParentContextWithAppContext() {
 		environmentEnrichedInParentContext("spring.config.use-legacy-processing=true",
 				"spring.cloud.config.initialize-on-context-refresh=true");
 	}
@@ -507,9 +507,10 @@ public class BootstrapConfigurationTests {
 						.isTrue();
 	}
 
+	// FIXME: legacy
 	@Test
-	@Disabled // FIXME: legacy
-	public void differentProfileInChild() {
+	@Disabled
+	void differentProfileInChild() {
 		PropertySourceConfiguration.MAP.put("bootstrap.foo", "bar");
 		// Profiles are always merged with the child
 		ConfigurableApplicationContext parent = new SpringApplicationBuilder().sources(BareConfiguration.class)
@@ -538,12 +539,12 @@ public class BootstrapConfigurationTests {
 	}
 
 	@Test
-	public void includeProfileFromBootstrapPropertySource() {
+	void includeProfileFromBootstrapPropertySource() {
 		includeProfileFromBootstrapPropertySource("spring.config.use-legacy-processing=true");
 	}
 
 	@Test
-	public void includeProfileFromBootstrapPropertySourceWithAppContext() {
+	void includeProfileFromBootstrapPropertySourceWithAppContext() {
 		includeProfileFromBootstrapPropertySource("spring.config.use-legacy-processing=true",
 				"spring.cloud.config.initialize-on-context-refresh=true");
 	}
@@ -557,13 +558,13 @@ public class BootstrapConfigurationTests {
 	}
 
 	@Test
-	public void activeProfileFromBootstrapPropertySource() {
+	void activeProfileFromBootstrapPropertySource() {
 		activeProfileFromBootstrapPropertySource("spring.config.use-legacy-processing=true");
 		then(this.context.getEnvironment().getActiveProfiles()).contains("foo");
 	}
 
 	@Test
-	public void activeProfileFromBootstrapPropertySourceWithAppContext() {
+	void activeProfileFromBootstrapPropertySourceWithAppContext() {
 		activeProfileFromBootstrapPropertySource("spring.config.use-legacy-processing=true",
 				"spring.cloud.config.initialize-on-context-refresh=true");
 		then(this.context.getEnvironment().getActiveProfiles()).doesNotContain("after");
@@ -579,12 +580,12 @@ public class BootstrapConfigurationTests {
 	}
 
 	@Test
-	public void activeAndIncludeProfileFromBootstrapPropertySource() {
+	void activeAndIncludeProfileFromBootstrapPropertySource() {
 		activeAndIncludeProfileFromBootstrapPropertySource("spring.config.use-legacy-processing=true");
 	}
 
 	@Test
-	public void activeAndIncludeProfileFromBootstrapPropertySourceWithAppContext() {
+	void activeAndIncludeProfileFromBootstrapPropertySourceWithAppContext() {
 		activeAndIncludeProfileFromBootstrapPropertySource("spring.config.use-legacy-processing=true",
 				"spring.cloud.config.initialize-on-context-refresh=true");
 	}
@@ -599,13 +600,13 @@ public class BootstrapConfigurationTests {
 	}
 
 	@Test
-	public void activeAndIncludeProfileFromBootstrapPropertySourceWithReplacement() {
+	void activeAndIncludeProfileFromBootstrapPropertySourceWithReplacement() {
 		activeAndIncludeProfileFromBootstrapPropertySourceWithReplacement("spring.config.use-legacy-processing=true",
 				"barreplacement=bar");
 	}
 
 	@Test
-	public void activeAndIncludeProfileFromBootstrapPropertySourceWithReplacementWithAppContext() {
+	void activeAndIncludeProfileFromBootstrapPropertySourceWithReplacementWithAppContext() {
 		activeAndIncludeProfileFromBootstrapPropertySourceWithReplacement("spring.config.use-legacy-processing=true",
 				"barreplacement=bar", "spring.cloud.config.initialize-on-context-refresh=true");
 	}
@@ -620,13 +621,13 @@ public class BootstrapConfigurationTests {
 	}
 
 	@Test
-	public void includeProfileFromBootstrapProperties() {
+	void includeProfileFromBootstrapProperties() {
 		includeProfileFromBootstrapProperties("spring.config.use-legacy-processing=true",
 				"spring.cloud.bootstrap.name=local");
 	}
 
 	@Test
-	public void includeProfileFromBootstrapPropertiesWithAppContext() {
+	void includeProfileFromBootstrapPropertiesWithAppContext() {
 		includeProfileFromBootstrapProperties("spring.config.use-legacy-processing=true",
 				"spring.cloud.bootstrap.name=local", "spring.cloud.config.initialize-on-context-refresh=true");
 	}
@@ -639,13 +640,13 @@ public class BootstrapConfigurationTests {
 	}
 
 	@Test
-	public void nonEnumerablePropertySourceWorks() {
+	void nonEnumerablePropertySourceWorks() {
 		nonEnumerablePropertySourceWorks("spring.config.use-legacy-processing=true",
 				"spring.cloud.bootstrap.name=nonenumerable");
 	}
 
 	@Test
-	public void nonEnumerablePropertySourceWorksWithAppContext() {
+	void nonEnumerablePropertySourceWorksWithAppContext() {
 		nonEnumerablePropertySourceWorks("spring.config.use-legacy-processing=true",
 				"spring.cloud.bootstrap.name=nonenumerable", "spring.cloud.config.initialize-on-context-refresh=true");
 	}

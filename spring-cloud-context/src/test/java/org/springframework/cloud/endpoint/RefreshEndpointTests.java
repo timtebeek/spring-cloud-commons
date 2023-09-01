@@ -57,20 +57,21 @@ import static org.assertj.core.api.BDDAssertions.then;
  * @author Dave Syer
  * @author Venil Noronha
  */
-public class RefreshEndpointTests {
+class RefreshEndpointTests {
 
 	private ConfigurableApplicationContext context;
 
 	@AfterEach
-	public void close() {
+	void close() {
 		if (this.context != null) {
 			this.context.close();
 		}
 	}
 
+	// FIXME: legacy
 	@Test
-	@Disabled // FIXME: legacy
-	public void keysComputedWhenAdded() {
+	@Disabled
+	void keysComputedWhenAdded() {
 		this.context = new SpringApplicationBuilder(Empty.class).web(WebApplicationType.NONE).bannerMode(Mode.OFF)
 				.properties("spring.cloud.bootstrap.enabled=true", "spring.cloud.bootstrap.name:none").run();
 		RefreshScope scope = new RefreshScope();
@@ -82,9 +83,10 @@ public class RefreshEndpointTests {
 		then(keys.contains("added")).isTrue().as("Wrong keys: " + keys);
 	}
 
+	// FIXME: legacy
 	@Test
-	@Disabled // FIXME: legacy
-	public void keysComputedWhenOveridden() {
+	@Disabled
+	void keysComputedWhenOveridden() {
 		this.context = new SpringApplicationBuilder(Empty.class).web(WebApplicationType.NONE).bannerMode(Mode.OFF)
 				.properties("spring.cloud.bootstrap.enabled=true", "spring.cloud.bootstrap.name:none").run();
 		RefreshScope scope = new RefreshScope();
@@ -97,7 +99,7 @@ public class RefreshEndpointTests {
 	}
 
 	@Test
-	public void keysComputedWhenChangesInExternalProperties() {
+	void keysComputedWhenChangesInExternalProperties() {
 		this.context = new SpringApplicationBuilder(Empty.class).web(WebApplicationType.NONE).bannerMode(Mode.OFF)
 				.properties("spring.cloud.bootstrap.name:none", "spring.cloud.bootstrap.enabled=true").run();
 		RefreshScope scope = new RefreshScope();
@@ -111,7 +113,7 @@ public class RefreshEndpointTests {
 	}
 
 	@Test
-	public void springMainSourcesEmptyInRefreshCycle() {
+	void springMainSourcesEmptyInRefreshCycle() {
 		this.context = new SpringApplicationBuilder(Empty.class).web(WebApplicationType.NONE).bannerMode(Mode.OFF)
 				.properties("spring.cloud.bootstrap.name:none").run();
 		RefreshScope scope = new RefreshScope();
@@ -128,7 +130,7 @@ public class RefreshEndpointTests {
 	}
 
 	@Test
-	public void eventsPublishedInOrder() {
+	void eventsPublishedInOrder() {
 		this.context = new SpringApplicationBuilder(Empty.class).web(WebApplicationType.NONE).bannerMode(Mode.OFF)
 				.run();
 		RefreshScope scope = new RefreshScope();
@@ -142,9 +144,10 @@ public class RefreshEndpointTests {
 		then(empty.events.get(0) instanceof EnvironmentChangeEvent).isTrue();
 	}
 
+	// FIXME:
 	@Test
-	@DisabledForJreRange(min = JRE.JAVA_16) // FIXME:
-	public void shutdownHooksCleaned() {
+	@DisabledForJreRange(min = JRE.JAVA_16)
+	void shutdownHooksCleaned() {
 		try (ConfigurableApplicationContext context = new SpringApplicationBuilder(Empty.class)
 				.web(WebApplicationType.NONE).bannerMode(Mode.OFF).run()) {
 			RefreshScope scope = new RefreshScope();

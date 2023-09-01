@@ -44,7 +44,7 @@ import static org.assertj.core.api.Assertions.fail;
 import static org.assertj.core.api.BDDAssertions.then;
 
 @SpringBootTest(classes = TestConfiguration.class)
-public class MoreRefreshScopeIntegrationTests {
+class MoreRefreshScopeIntegrationTests {
 
 	@Autowired
 	private TestService service;
@@ -56,19 +56,19 @@ public class MoreRefreshScopeIntegrationTests {
 	private ConfigurableEnvironment environment;
 
 	@BeforeEach
-	public void init() {
+	void init() {
 		then(TestService.getInitCount()).isEqualTo(1);
 		TestService.reset();
 	}
 
 	@AfterEach
-	public void close() {
+	void close() {
 		TestService.reset();
 	}
 
 	@Test
 	@DirtiesContext
-	public void testSimpleProperties() {
+	void testSimpleProperties() {
 		then(this.service.getMessage()).isEqualTo("Hello scope!");
 		then(this.service instanceof Advised).isTrue();
 		// Change the dynamic property source...
@@ -81,7 +81,7 @@ public class MoreRefreshScopeIntegrationTests {
 
 	@Test
 	@DirtiesContext
-	public void testRefresh() {
+	void testRefresh() {
 		then(this.service.getMessage()).isEqualTo("Hello scope!");
 		String id1 = this.service.toString();
 		// Change the dynamic property source...
@@ -98,7 +98,7 @@ public class MoreRefreshScopeIntegrationTests {
 
 	@Test
 	@DirtiesContext
-	public void testRefreshFails() {
+	void testRefreshFails() {
 		then(this.service.getMessage()).isEqualTo("Hello scope!");
 		// Change the dynamic property source...
 		TestPropertyValues.of("message:Foo", "delay:foo").applyTo(this.environment);

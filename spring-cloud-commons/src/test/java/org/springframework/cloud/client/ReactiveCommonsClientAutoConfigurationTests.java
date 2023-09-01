@@ -36,7 +36,7 @@ import static org.assertj.core.api.BDDAssertions.then;
 /**
  * @author Tim Ysewyn
  */
-public class ReactiveCommonsClientAutoConfigurationTests {
+class ReactiveCommonsClientAutoConfigurationTests {
 
 	ApplicationContextRunner applicationContextRunner = new ApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(CommonsClientAutoConfiguration.class,
@@ -44,7 +44,7 @@ public class ReactiveCommonsClientAutoConfigurationTests {
 					ReactiveCommonsClientAutoConfiguration.class));
 
 	@Test
-	public void beansCreatedNormally() {
+	void beansCreatedNormally() {
 		applicationContextRunner.withPropertyValues("management.endpoints.web.exposure.include=features")
 				.run(context -> {
 					then(context.getBean(ReactiveDiscoveryClientHealthIndicator.class)).isNotNull();
@@ -55,7 +55,7 @@ public class ReactiveCommonsClientAutoConfigurationTests {
 	}
 
 	@Test
-	public void disableAll() {
+	void disableAll() {
 		applicationContextRunner.withPropertyValues("spring.cloud.discovery.enabled=false",
 				"management.endpoints.web.exposure.include=features").run(context -> {
 					assertThat(context).doesNotHaveBean(ReactiveDiscoveryClientHealthIndicator.class);
@@ -67,7 +67,7 @@ public class ReactiveCommonsClientAutoConfigurationTests {
 	}
 
 	@Test
-	public void disableReactive() {
+	void disableReactive() {
 		applicationContextRunner.withPropertyValues("spring.cloud.discovery.reactive.enabled=false",
 				"management.endpoints.web.exposure.include=features").run(context -> {
 					assertThat(context).doesNotHaveBean(ReactiveDiscoveryClientHealthIndicator.class);
@@ -79,7 +79,7 @@ public class ReactiveCommonsClientAutoConfigurationTests {
 	}
 
 	@Test
-	public void disableAllIndividually() {
+	void disableAllIndividually() {
 		applicationContextRunner.withPropertyValues("spring.cloud.discovery.client.health-indicator.enabled=false",
 				"spring.cloud.discovery.client.composite-indicator.enabled=false",
 				"spring.cloud.features.enabled=false").run(context -> {
@@ -90,7 +90,7 @@ public class ReactiveCommonsClientAutoConfigurationTests {
 	}
 
 	@Test
-	public void disableHealthIndicator() {
+	void disableHealthIndicator() {
 		applicationContextRunner.withPropertyValues("spring.cloud.discovery.client.health-indicator.enabled=false")
 				.run(context -> {
 					assertThat(context).doesNotHaveBean(ReactiveDiscoveryClientHealthIndicator.class);
@@ -99,7 +99,7 @@ public class ReactiveCommonsClientAutoConfigurationTests {
 	}
 
 	@Test
-	public void worksWithoutActuator() {
+	void worksWithoutActuator() {
 		applicationContextRunner.withClassLoader(new FilteredClassLoader("org.springframework.boot.actuate"))
 				.run(context -> {
 					assertThat(context).doesNotHaveBean(ReactiveDiscoveryClientHealthIndicator.class);
@@ -109,7 +109,7 @@ public class ReactiveCommonsClientAutoConfigurationTests {
 	}
 
 	@Test
-	public void worksWithoutWebflux() {
+	void worksWithoutWebflux() {
 		applicationContextRunner.withClassLoader(new FilteredClassLoader("org.springframework.web.reactive"))
 				.run(context -> {
 					assertThat(context).doesNotHaveBean(ReactiveDiscoveryClientHealthIndicator.class);
@@ -119,7 +119,7 @@ public class ReactiveCommonsClientAutoConfigurationTests {
 	}
 
 	@Test
-	public void conditionalOnReactiveDiscoveryEnabledWorks() {
+	void conditionalOnReactiveDiscoveryEnabledWorks() {
 		ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 				.withUserConfiguration(ReactiveDiscoveryEnabledConfig.class);
 		contextRunner.withPropertyValues("spring.cloud.discovery.reactive.enabled=false")

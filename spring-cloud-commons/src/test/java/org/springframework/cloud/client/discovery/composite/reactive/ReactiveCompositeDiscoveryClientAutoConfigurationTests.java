@@ -37,7 +37,7 @@ class ReactiveCompositeDiscoveryClientAutoConfigurationTests {
 			.withConfiguration(AutoConfigurations.of(ReactiveCompositeDiscoveryClientAutoConfiguration.class));
 
 	@Test
-	public void shouldCreateCompositeReactiveDiscoveryClientWithoutDelegates() {
+	void shouldCreateCompositeReactiveDiscoveryClientWithoutDelegates() {
 		this.contextRunner.run((context) -> {
 			ReactiveDiscoveryClient client = context.getBean(ReactiveDiscoveryClient.class);
 			assertThat(client).isNotNull();
@@ -47,7 +47,7 @@ class ReactiveCompositeDiscoveryClientAutoConfigurationTests {
 	}
 
 	@Test
-	public void shouldCreateCompositeReactiveDiscoveryClientWithDelegate() {
+	void shouldCreateCompositeReactiveDiscoveryClientWithDelegate() {
 		this.contextRunner.withUserConfiguration(Configuration.class).run((context) -> {
 			ReactiveDiscoveryClient client = context.getBean(ReactiveDiscoveryClient.class);
 			assertThat(client).isNotNull();

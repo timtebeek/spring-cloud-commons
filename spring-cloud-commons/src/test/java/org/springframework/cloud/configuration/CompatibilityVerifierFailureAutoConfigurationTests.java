@@ -30,10 +30,10 @@ import static org.assertj.core.api.BDDAssertions.then;
 /**
  * @author Marcin Grzejszczak
  */
-public class CompatibilityVerifierFailureAutoConfigurationTests {
+class CompatibilityVerifierFailureAutoConfigurationTests {
 
 	@Test
-	public void contextFailsToLoad() {
+	void contextFailsToLoad() {
 		try {
 			SpringApplication.run(TestConfiguration.class,
 					"--spring.cloud.compatibility-verifier.compatible-boot-versions=1.2.x,1.3.x");

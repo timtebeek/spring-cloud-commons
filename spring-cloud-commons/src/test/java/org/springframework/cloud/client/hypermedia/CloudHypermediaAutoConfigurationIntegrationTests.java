@@ -34,14 +34,14 @@ import static org.assertj.core.api.BDDAssertions.then;
  * @author Oliver Gierke
  * @author Tim Ysewyn
  */
-public class CloudHypermediaAutoConfigurationIntegrationTests {
+class CloudHypermediaAutoConfigurationIntegrationTests {
 
 	private static ConfigurableApplicationContext getApplicationContext(Class<?> configuration) {
 		return new SpringApplicationBuilder(configuration).properties("server.port=0").run();
 	}
 
 	@Test
-	public void picksUpHypermediaProperties() {
+	void picksUpHypermediaProperties() {
 
 		try (ConfigurableApplicationContext context = getApplicationContext(ConfigWithRemoteResource.class)) {
 
@@ -53,7 +53,7 @@ public class CloudHypermediaAutoConfigurationIntegrationTests {
 	}
 
 	@Test
-	public void doesNotCreateCloudHypermediaPropertiesifNotActive() {
+	void doesNotCreateCloudHypermediaPropertiesifNotActive() {
 
 		try (ConfigurableApplicationContext context = getApplicationContext(Config.class)) {
 			then(context.getBeanNamesForType(CloudHypermediaProperties.class)).hasSize(0);
@@ -61,7 +61,7 @@ public class CloudHypermediaAutoConfigurationIntegrationTests {
 	}
 
 	@Test
-	public void doesNotRegisterResourceRefresherIfNoDiscoveredResourceIsDefined() {
+	void doesNotRegisterResourceRefresherIfNoDiscoveredResourceIsDefined() {
 
 		try (ConfigurableApplicationContext context = getApplicationContext(Config.class)) {
 
@@ -71,7 +71,7 @@ public class CloudHypermediaAutoConfigurationIntegrationTests {
 	}
 
 	@Test
-	public void registersResourceRefresherIfDiscoverredResourceIsDefined() {
+	void registersResourceRefresherIfDiscoverredResourceIsDefined() {
 
 		try (ConfigurableApplicationContext context = getApplicationContext(ConfigWithRemoteResource.class)) {
 

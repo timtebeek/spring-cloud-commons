@@ -46,7 +46,7 @@ class ReactiveCompositeDiscoveryClientTests {
 	private ReactiveDiscoveryClient discoveryClient2;
 
 	@Test
-	public void shouldReturnEmptyFluxOfServices() {
+	void shouldReturnEmptyFluxOfServices() {
 		ReactiveCompositeDiscoveryClient client = new ReactiveCompositeDiscoveryClient(emptyList());
 
 		Flux<String> services = client.getServices();
@@ -55,7 +55,7 @@ class ReactiveCompositeDiscoveryClientTests {
 	}
 
 	@Test
-	public void shouldReturnFluxOfServices() {
+	void shouldReturnFluxOfServices() {
 		TestPublisher<String> discoveryClient1Publisher = TestPublisher.createCold();
 		discoveryClient1Publisher.emit("serviceAFromClient1");
 		discoveryClient1Publisher.emit("serviceBFromClient1");
@@ -80,7 +80,7 @@ class ReactiveCompositeDiscoveryClientTests {
 	}
 
 	@Test
-	public void shouldReturnEmptyFluxOfServiceInstances() {
+	void shouldReturnEmptyFluxOfServiceInstances() {
 		ReactiveCompositeDiscoveryClient client = new ReactiveCompositeDiscoveryClient(emptyList());
 
 		Flux<ServiceInstance> instances = client.getInstances("service");
@@ -89,7 +89,7 @@ class ReactiveCompositeDiscoveryClientTests {
 	}
 
 	@Test
-	public void shouldReturnFluxOfServiceInstances() {
+	void shouldReturnFluxOfServiceInstances() {
 		DefaultServiceInstance serviceInstance1 = new DefaultServiceInstance("instance", "service", "localhost", 8080,
 				false);
 		DefaultServiceInstance serviceInstance2 = new DefaultServiceInstance("instance2", "service", "localhost", 8080,

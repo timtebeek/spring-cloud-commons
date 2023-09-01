@@ -29,16 +29,16 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Andy Wilkinson
  */
 @ClassPathOverrides("org.springframework:spring-context:4.1.0.RELEASE")
-public class ModifiedClassPathRunnerOverridesTests {
+class ModifiedClassPathRunnerOverridesTests {
 
 	@Test
-	public void classesAreLoadedFromOverride() {
+	void classesAreLoadedFromOverride() {
 		assertThat(ApplicationContext.class.getProtectionDomain().getCodeSource().getLocation().toString())
 				.endsWith("spring-context-4.1.0.RELEASE.jar");
 	}
 
 	@Test
-	public void classesAreLoadedFromTransitiveDependencyOfOverride() {
+	void classesAreLoadedFromTransitiveDependencyOfOverride() {
 		assertThat(StringUtils.class.getProtectionDomain().getCodeSource().getLocation().toString())
 				.endsWith("spring-core-4.1.0.RELEASE.jar");
 	}

@@ -29,9 +29,8 @@ import static org.assertj.core.api.BDDAssertions.then;
 /**
  * @author Ryan Baxter
  */
-@SpringBootTest(classes = ServletSimpleDiscoveryPropertiesAutoConfigurationTests.Config.class,
-		webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class ServletSimpleDiscoveryPropertiesAutoConfigurationTests {
+@SpringBootTest(classes = ServletSimpleDiscoveryPropertiesAutoConfigurationTests.Config.class,webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+class ServletSimpleDiscoveryPropertiesAutoConfigurationTests {
 
 	@Autowired
 	private SimpleDiscoveryProperties discoveryProperties;
@@ -40,7 +39,7 @@ public class ServletSimpleDiscoveryPropertiesAutoConfigurationTests {
 	private int port;
 
 	@Test
-	public void testPort() {
+	void testPort() {
 		then(discoveryProperties.getLocal().getPort()).isEqualTo(port);
 	}
 

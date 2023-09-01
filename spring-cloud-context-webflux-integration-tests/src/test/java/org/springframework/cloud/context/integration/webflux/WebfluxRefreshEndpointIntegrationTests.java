@@ -37,9 +37,8 @@ import static org.springframework.boot.test.context.SpringBootTest.WebEnvironmen
  * @author Dave Syer
  *
  */
-@SpringBootTest(classes = WebfluxRefreshEndpointIntegrationTests.ClientApp.class,
-		properties = { "management.endpoints.web.exposure.include=*" }, webEnvironment = RANDOM_PORT)
-public class WebfluxRefreshEndpointIntegrationTests {
+@SpringBootTest(classes = WebfluxRefreshEndpointIntegrationTests.ClientApp.class,properties = {"management.endpoints.web.exposure.include=*"}, webEnvironment = RANDOM_PORT)
+class WebfluxRefreshEndpointIntegrationTests {
 
 	private static final String BASE_PATH = new WebEndpointProperties().getBasePath();
 
@@ -47,7 +46,7 @@ public class WebfluxRefreshEndpointIntegrationTests {
 	private int port;
 
 	@Test
-	public void webAccess() throws Exception {
+	void webAccess() throws Exception {
 		TestRestTemplate template = new TestRestTemplate();
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_JSON);

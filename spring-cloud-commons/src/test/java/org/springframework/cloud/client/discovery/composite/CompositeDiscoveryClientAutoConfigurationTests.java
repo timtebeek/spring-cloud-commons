@@ -38,13 +38,13 @@ import static org.assertj.core.api.BDDAssertions.then;
  */
 
 @SpringBootTest
-public class CompositeDiscoveryClientAutoConfigurationTests {
+class CompositeDiscoveryClientAutoConfigurationTests {
 
 	@Autowired
 	private DiscoveryClient discoveryClient;
 
 	@Test
-	public void compositeDiscoveryClientShouldBeTheDefault() {
+	void compositeDiscoveryClientShouldBeTheDefault() {
 		then(this.discoveryClient).isInstanceOf(CompositeDiscoveryClient.class);
 		CompositeDiscoveryClient compositeDiscoveryClient = (CompositeDiscoveryClient) this.discoveryClient;
 		then(compositeDiscoveryClient.getDiscoveryClients()).hasSize(2);
@@ -53,7 +53,7 @@ public class CompositeDiscoveryClientAutoConfigurationTests {
 	}
 
 	@Test
-	public void simpleDiscoveryClientShouldBeHaveTheLowestPrecedence() {
+	void simpleDiscoveryClientShouldBeHaveTheLowestPrecedence() {
 		CompositeDiscoveryClient compositeDiscoveryClient = (CompositeDiscoveryClient) this.discoveryClient;
 		then(compositeDiscoveryClient.getDiscoveryClients().get(0).description())
 				.isEqualTo("A custom discovery client");

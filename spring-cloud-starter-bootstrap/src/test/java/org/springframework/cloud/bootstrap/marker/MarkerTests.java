@@ -27,13 +27,13 @@ import org.springframework.core.env.Environment;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
-public class MarkerTests {
+class MarkerTests {
 
 	@Autowired
 	private Environment env;
 
 	@Test
-	public void testBootstrapIsEnabled() {
+	void testBootstrapIsEnabled() {
 		assertThat(env.getProperty("my.prop")).isEqualTo("my.value");
 	}
 

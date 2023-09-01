@@ -40,12 +40,12 @@ import static org.assertj.core.api.BDDAssertions.then;
  * @author Dave Syer
  *
  */
-public class RefreshScopeConfigurationTests {
+class RefreshScopeConfigurationTests {
 
 	private AnnotationConfigApplicationContext context;
 
 	@AfterEach
-	public void init() {
+	void init() {
 		if (this.context != null) {
 			this.context.close();
 		}
@@ -63,7 +63,7 @@ public class RefreshScopeConfigurationTests {
 	 * See gh-43
 	 */
 	@Test
-	public void configurationWithRefreshScope() {
+	void configurationWithRefreshScope() {
 		this.context = new AnnotationConfigApplicationContext(Application.class,
 				PropertyPlaceholderAutoConfiguration.class, RefreshAutoConfiguration.class,
 				LifecycleMvcEndpointAutoConfiguration.class);
@@ -77,7 +77,7 @@ public class RefreshScopeConfigurationTests {
 	}
 
 	@Test
-	public void refreshScopeOnBean() {
+	void refreshScopeOnBean() {
 		this.context = new AnnotationConfigApplicationContext(ClientApp.class,
 				PropertyPlaceholderAutoConfiguration.class, RefreshAutoConfiguration.class,
 				LifecycleMvcEndpointAutoConfiguration.class);
@@ -89,7 +89,7 @@ public class RefreshScopeConfigurationTests {
 	}
 
 	@Test
-	public void refreshScopeOnNested() {
+	void refreshScopeOnNested() {
 		this.context = new AnnotationConfigApplicationContext(NestedApp.class,
 				PropertyPlaceholderAutoConfiguration.class, RefreshAutoConfiguration.class,
 				LifecycleMvcEndpointAutoConfiguration.class);

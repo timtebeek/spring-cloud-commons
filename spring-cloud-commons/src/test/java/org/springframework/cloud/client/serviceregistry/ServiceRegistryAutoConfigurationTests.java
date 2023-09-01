@@ -30,11 +30,11 @@ import static org.assertj.core.api.Assertions.fail;
 /**
  * @author Spencer Gibb
  */
-@ClassPathExclusions({ "spring-boot-actuator-*.jar", "spring-boot-starter-actuator-*.jar" })
-public class ServiceRegistryAutoConfigurationTests {
+@ClassPathExclusions({"spring-boot-actuator-*.jar", "spring-boot-starter-actuator-*.jar"})
+class ServiceRegistryAutoConfigurationTests {
 
 	@Test
-	public void runsWithoutActuator() {
+	void runsWithoutActuator() {
 		ConfigurableApplicationContext context = new SpringApplicationBuilder(TestConfig.class)
 				.web(WebApplicationType.NONE).run();
 		try {

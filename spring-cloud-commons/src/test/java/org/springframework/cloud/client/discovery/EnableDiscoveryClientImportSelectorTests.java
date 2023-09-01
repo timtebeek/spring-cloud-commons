@@ -31,7 +31,7 @@ import static org.mockito.BDDMockito.given;
 /**
  * @author Spencer Gibb
  */
-public class EnableDiscoveryClientImportSelectorTests {
+class EnableDiscoveryClientImportSelectorTests {
 
 	private final EnableDiscoveryClientImportSelector importSelector = new EnableDiscoveryClientImportSelector();
 
@@ -44,14 +44,14 @@ public class EnableDiscoveryClientImportSelectorTests {
 	private AnnotationAttributes annotationAttributes;
 
 	@BeforeEach
-	public void setup() {
+	void setup() {
 		MockitoAnnotations.openMocks(this);
 		this.importSelector.setBeanClassLoader(getClass().getClassLoader());
 		this.importSelector.setEnvironment(this.environment);
 	}
 
 	@Test
-	public void autoRegistrationIsEnabled() {
+	void autoRegistrationIsEnabled() {
 		configureAnnotation(true);
 		String[] imports = this.importSelector.selectImports(this.annotationMetadata);
 		then(this.environment.getProperty("spring.cloud.service-registry.auto-registration.enabled", Boolean.class,
@@ -60,7 +60,7 @@ public class EnableDiscoveryClientImportSelectorTests {
 	}
 
 	@Test
-	public void autoRegistrationIsDisabled() {
+	void autoRegistrationIsDisabled() {
 		configureAnnotation(false);
 		String[] imports = this.importSelector.selectImports(this.annotationMetadata);
 		then(this.environment.getProperty("spring.cloud.service-registry.auto-registration.enabled", Boolean.class))
